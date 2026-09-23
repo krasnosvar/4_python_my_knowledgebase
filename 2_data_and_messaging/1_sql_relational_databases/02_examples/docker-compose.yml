@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: pg_python_kb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kb_user
+      POSTGRES_PASSWORD: kb_password
+      POSTGRES_DB: kb_shop
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_kb_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kb_user -d kb_shop"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_kb_data:

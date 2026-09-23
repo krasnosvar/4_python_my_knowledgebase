@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]  # pycodestyle, pyflakes, isort, pyupgrade, bugbear, simplify
+ignore = ["E501"]  # длину строки контролирует форматтер, а не линтер
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true

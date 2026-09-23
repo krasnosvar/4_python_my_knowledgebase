@@ -1,0 +1,36 @@
+# Локальная разработка: приложение + Postgres.
+# Запуск: docker compose up --build
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://demo:demo@db:5432/demo
+    volumes:
+      # bind mount: правки в ./app сразу видны в контейнере без пересборки образа
+      - ./app:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    # для локальной разработки удобно переопределить CMD на режим с автоперезагрузкой:
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+    volumes:
+      # named volume: данные переживают `docker compose down` (но не `down -v`)
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U demo -d demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:

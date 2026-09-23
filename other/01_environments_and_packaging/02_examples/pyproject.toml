@@ -1,0 +1,23 @@
+[project]
+name = "myapp"
+version = "0.1.0"
+description = "Пример конфигурации проекта на pyproject.toml"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115,<0.116",
+    "uvicorn[standard]>=0.30,<0.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "mypy>=1.10,<2",
+    "ruff>=0.6,<1",
+]
+
+# Настройки инструментов — в том же файле, без отдельных .flake8/mypy.ini/pytest.ini.
+# Подробности про ruff/mypy — см. ../../02_typing_and_static_analysis/02_examples/pyproject.toml
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
