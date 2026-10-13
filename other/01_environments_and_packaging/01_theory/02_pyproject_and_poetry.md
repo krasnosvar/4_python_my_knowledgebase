@@ -39,8 +39,14 @@ poetry add --group dev pytest  # dev-зависимость (не ставитс
 poetry install                # установить всё согласно lock-файлу
 poetry remove requests         # убрать зависимость
 poetry run pytest              # запустить команду внутри виртуального окружения проекта
-poetry shell                    # активировать окружение проекта в текущем шелле
+poetry env activate             # Poetry 2.x: напечатать команду активации окружения
+eval $(poetry env activate)     # ...и сразу выполнить её в текущем шелле
 ```
+
+В Poetry 1.x окружение активировали командой `poetry shell`. С Poetry 2.0
+она убрана из основной поставки: либо `poetry env activate` (как выше),
+либо отдельный плагин `poetry-plugin-shell`, который возвращает `poetry
+shell`.
 
 ## poetry.lock: зачем нужен lock-файл
 
@@ -59,9 +65,13 @@ poetry shell                    # активировать окружение п
 
 ```bash
 poetry lock                  # пересчитать lock-файл (например, после правки диапазонов)
-poetry lock --check           # проверить, что lock-файл соответствует pyproject.toml
+poetry check --lock           # проверить, что lock-файл соответствует pyproject.toml
 poetry export -f requirements.txt --output requirements.txt   # экспорт для окружений без poetry
 ```
+
+Версии Poetry: в 1.x проверка lock-файла называлась `poetry lock --check`,
+в 2.x — `poetry check --lock`. `poetry export` в Poetry 2.x тоже не входит
+в основную поставку — нужен плагин `poetry-plugin-export`.
 
 ## Альтернативы Poetry
 

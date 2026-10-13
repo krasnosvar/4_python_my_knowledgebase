@@ -4,7 +4,7 @@ Routing key "logs.<service>.<level>". Специально включено со
 "logs.auth.error", которое должно быть доставлено сразу в ОБЕ очереди
 упражнения (errors_queue - по level, auth_service_queue - по service) -
 это демонстрирует, что биндинги topic exchange независимы друг от друга,
-а не взаимоисключающие фильтры (см. 01_theory/README.md, раздел 3.1/3.4).
+а не взаимоисключающие фильтры (см. 01_theory/06_rabbitmq.md).
 """
 from __future__ import annotations
 

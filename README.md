@@ -11,9 +11,10 @@
 
 - [0_tooling_and_workflow](./0_tooling_and_workflow/) — Git и Docker: минимум, без
   которого не обойтись в повседневной работе, ещё до погружения в язык.
-- [1_python](./1_python/) — Python от базовых типов и функций до ООП, итераторов
-  и генераторов, конкурентности (GIL, threading, multiprocessing, asyncio),
-  стандартной библиотеки, тестирования, алгоритмов и внутреннего устройства CPython.
+- [1_python](./1_python/) — Python с нуля: переменные, типы, `if`/`for`/`while`,
+  функции — и дальше до идиом языка, ООП, итераторов и генераторов,
+  конкурентности (GIL, threading, multiprocessing, asyncio), стандартной
+  библиотеки, тестирования, алгоритмов и внутреннего устройства CPython.
 - [2_data_and_messaging](./2_data_and_messaging/) — реляционные БД, транзакции
   и индексы, Redis как кэш, Kafka и RabbitMQ как брокеры сообщений.
 - [3_web_frameworks](./3_web_frameworks/) — FastAPI, Django ORM, Celery и сравнение
@@ -60,7 +61,7 @@
 состояние задачи, а готовые решения лежат рядом в `04_exercises_answers/`.
 
 ```bash
-python 1_python/1_basics/03_exercises/some_exercise.py
+python 1_python/2_basics/03_exercises/some_exercise.py
 ```
 
 Часть тем (SQL, Redis, брокеры сообщений) поднимают локальное окружение через

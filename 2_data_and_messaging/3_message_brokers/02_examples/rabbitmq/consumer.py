@@ -2,7 +2,7 @@
 
 Демонстрирует:
   - очередь "eu_orders_queue", привязанную к exchange "orders_topic"
-    с binding key "orders.eu.*" (см. 01_theory/README.md, раздел 3.4) -
+    с binding key "orders.eu.*" (см. 01_theory/06_rabbitmq.md) -
     получит только события по EU-заказам, независимо от типа события;
   - manual ack: сообщение подтверждается только после успешной обработки;
   - retry с backoff (retry_with_backoff.py) перед тем, как сдаться;

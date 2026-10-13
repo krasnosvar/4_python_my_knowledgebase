@@ -4,7 +4,7 @@ BINDING_KEY = "logs.auth.#": первые два слова фиксирован
 "#" на месте level означает "ноль или более любых слов после этого" - то есть
 подойдёт "logs.auth.error", "logs.auth.info", "logs.auth.warning" и даже
 гипотетический "logs.auth.error.critical" (два слова после auth), но не
-подойдёт "logs.billing.error" (см. 01_theory/README.md, раздел 3.4).
+подойдёт "logs.billing.error" (см. 01_theory/06_rabbitmq.md).
 """
 from __future__ import annotations
 

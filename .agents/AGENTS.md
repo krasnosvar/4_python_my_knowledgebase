@@ -1,0 +1,257 @@
+# Repo Context & Conventions
+
+This is a Russian-language Python backend knowledge base: language fundamentals
+through idioms, OOP, iterators/generators, concurrency, stdlib, testing,
+algorithms, CPython internals, plus data/messaging, web frameworks, system
+design and engineering-communication topics. Root `README.md` is the master
+index of top-level sections — it MUST be kept in sync any time a subsection is
+added, removed, renamed, or nested; the same applies to each top-level topic's
+own `README.md`.
+
+All new content — theory, code comments in examples, exercise text — is
+written in Russian, matching the rest of the repo.
+
+## Directory & Structural Conventions
+
+- `1_python/` holds the core language path as `<N>_<name>/` with a sequential
+  integer prefix, currently: `1_python_fundamentals` (absolute zero — 7
+  topics: variables/types, operators, input/output, control flow, functions
+  + type hints, exceptions, modules/imports), `2_basics` (folder name kept
+  for link stability, but its README title is "Типы и коллекции изнутри" —
+  don't call it "основы", that collided with fundamentals and readers
+  couldn't tell why it existed), `3_functions_and_decorators`, `4_oop`,
+  `5_iterators_generators`, `6_concurrency`, `7_standard_library`, `8_testing`,
+  `9_algorithms_dsa`, `10_under_the_hood`. Don't assume the prefix on disk and
+  in `1_python/README.md` agree — verify with `ls` before trusting either;
+  this repo has already been renumbered once (see "Renumbering history"
+  below) and missed stale references the first pass.
+- Standard leaf template per subsection/subtopic: `01_theory/`, `02_examples/`,
+  `03_exercises/`, `04_exercises_answers/`, `README.md`.
+- **If `01_theory/` ever holds 2+ files, give each a numeric reading-order
+  prefix** (`01_`, `02_`, ...) — e.g. `1_python/2_basics/01_theory/{01_...,
+  02_..., 03_..., 04_..., 05_..., 06_...}`. A single-file topic keeps its
+  plain descriptive name (no prefix needed). This matters doubly here: the
+  prefix order isn't just for a reader browsing the bare directory — it's
+  also the *dependency* order (see Clarity Principle below), so reordering
+  theory files for pedagogy means renaming them, not just reshuffling a list
+  in the README. Same convention as the sibling `5_devops_sre_knowledgebase`
+  and `6_ai_engineering_knowledgebase` repos.
+- Exercise/example file numbering (`03_exercises/01_foo.py`, `02_bar.py`, ...)
+  does not need to match theory-file dependency order — exercises are meant
+  to be done after reading *all* theory files in the section, so they can be
+  ordered by difficulty instead.
+
+## Section framing — every README answers "зачем"
+
+Every section/topic README (in `1_python/` and in the top-level sections)
+opens with a title (`Тема N. ...` in `1_python/`), a **"Зачем этот раздел"**
+paragraph — what concrete problem it solves and what the reader can do
+afterwards — then prerequisites, a linked file list, how to go through it,
+and "Когда двигаться дальше". A README that is only a list of topics was
+the root of the "непонятно зачем этот раздел" complaint about `2_basics`;
+a full audit then found the same gap in sections 3 and 6–10 and in
+`3_web_frameworks`/`other` topics that had no README at all.
+
+## Where foundational topics live (link here, don't re-explain)
+
+A repo-wide audit found these used everywhere but taught nowhere; each now
+has one home — later sections give a one-line gloss plus a link:
+- exceptions (`try/except/raise`) → `1_python_fundamentals/06_exceptions/`
+- `import`, modules, `if __name__ == "__main__"` →
+  `1_python_fundamentals/07_modules_and_imports/`
+- type hints → section "Аннотации типов" in
+  `1_python_fundamentals/05_functions_basics/01_theory/01_functions_basics.md`
+  (full depth: `other/02_typing_and_static_analysis/`)
+- list/tuple/set/dict syntax, O(1)/O(n) glossary → start of
+  `2_basics/01_theory/02_collections_lists_tuples_sets_dicts.md`
+  (full Big-O: `9_algorithms_dsa/01_theory/01_big_o_notation.md`)
+- what a class/object/`self` is → `4_oop/01_theory/01_what_is_a_class.md`
+- recursion → `9_algorithms_dsa/01_theory/05_recursion_basics.md`
+- HTTP, routes, status codes, ASGI/WSGI →
+  `3_web_frameworks/1_fastapi/01_theory/01_http_and_first_app.md`
+- basic SQL → `2_data_and_messaging/1_sql_relational_databases/01_theory/01_sql_in_5_minutes.md`
+- CAP / eventual consistency → `.../01_theory/09_cap_and_eventual_consistency.md`
+- venv/pip → `other/01_environments_and_packaging/` (needed before any
+  `pip install -r requirements.txt`, even though it lives in `other/`)
+
+Internals for curious readers (hash buckets, load factor, over-allocation)
+go into a `<details>` "Для любопытных" block so the main text stays
+readable for someone coming straight from the previous section.
+
+Never point a reader into a sibling repo (Go, devops) as if it were part of
+this one — two such pointers in `4_system_design` were dead ends. Explain
+inline or link inside this repo.
+
+## Clarity Principle — never use a construct before it's taught
+
+The core rule governing reading order in this repo: an example or exercise
+must never use a Python construct (syntax, built-in, stdlib import) that
+hasn't been introduced yet by an earlier theory file — in the same subtopic,
+or in an earlier subtopic/section the reader is assumed to have finished.
+
+Real bugs found and fixed under this rule:
+- While writing `1_python_fundamentals` from scratch: an example used a `for`
+  loop before control flow was taught, another used `for...else` before it
+  was introduced, and an exercise hinted at string slicing (`text[::-1]`)
+  before slicing existed anywhere in the section. All three were caught
+  before merging by checking each new file against what prior files in the
+  same subtopic had actually taught, and fixed by using only
+  already-introduced constructs (explicit boolean flags, manual loops).
+- A deeper, structural case: `2_basics/01_theory/01_mutability_and_identity.md`
+  and `02_hashability_and_performance.md` (original numbering) both leaned
+  heavily on `list`/`dict`/`tuple`/`set` literal syntax, indexing, and
+  methods — but the file that actually teaches those types,
+  `04_collections_lists_tuples_sets_dicts.md`, came *after* them in the
+  original order. A reader who'd just finished `1_python_fundamentals` (which
+  stops at int/float/str/bool/None) would hit `lst.append(4)` and
+  `cache[("GET", "/users", 1)] = ...` with zero prior exposure to list/dict
+  syntax. Fixed by **renumbering the files**, not rewriting the content:
+  collections now comes first (`01_builtin_types.md`,
+  `02_collections_lists_tuples_sets_dicts.md`), then
+  `03_mutability_and_identity.md`, `04_hashability_and_performance.md`,
+  `05_comprehensions.md`, `06_control_flow.md`. A smaller instance of the
+  same bug was found in the collections file itself, which used a list
+  comprehension (`[[0] * 3 for _ in range(3)]`) before `05_comprehensions.md`
+  teaches comprehension syntax — fixed by rewriting that one line as an
+  explicit `for` loop instead of reordering.
+- **Reordering alone can move the bug instead of fixing it.** After the
+  collections file was moved to `02`, it in turn used O(1)/O(n),
+  "изменяемый", "хешируемый", "хеш-таблица" before `03`/`04` defined them,
+  and still taught no basic list/dict syntax. Real fix: a "Синтаксис за 2
+  минуты" block + mini-glossary at its top. After any reorder, re-audit the
+  file that moved *earlier* for terms it now uses too soon.
+- Other intra-section order bugs fixed the same way: `3_functions` (lambdas
+  and `*args/**kwargs` now `01`/`02`, before decorators), `9_algorithms_dsa`
+  (recursion basics split out before trees/sorting), `2_django` (project
+  structure + what a model is before querysets), `4_oop` (new
+  `01_what_is_a_class.md` before `__init__` vs `__new__`). Material that
+  genuinely needs a later section (context managers via class/`yield` in
+  section 3) carries an explicit "вернитесь после разделов 4–5" note rather
+  than silently assuming it.
+- **When auditing for this class of bug**, don't just check a file in
+  isolation — check it against what every *earlier-numbered* file in its own
+  01_theory/ actually covers, and against what the previous subtopic/section
+  (by the repo's own reading order) covers. A read-only parallel fork/subagent
+  pass per section is an effective way to do this at scale without blowing up
+  the reviewing agent's context; have it read full theory files, not just
+  skim the first one per section — a first pass that only spot-checked one
+  file per section missed the collections/mutability ordering bug entirely.
+
+## Exercise/Example Conventions
+
+- `02_examples/*.py` — runnable, self-contained scripts demonstrating the
+  topic; no `TODO`s, just working code with illustrative output.
+- `03_exercises/*.py` — a function body with `# TODO:` markers, raising
+  `NotImplementedError` until filled in, plus a `_self_check()` function that
+  uses `assert`, prints `PASS: ...` per check, and ends with a
+  `f"{checks_passed}/{total_checks} проверок пройдено"` summary. Each
+  exercise file has a sibling `README.md` in the same `03_exercises/`
+  directory explaining how to run it.
+- `04_exercises_answers/*.py` — same filenames as `03_exercises/`, same
+  `_self_check()` pattern, with the reference implementation instead of
+  `NotImplementedError`.
+- After writing or editing any of these, actually run them — `python
+  path/to/script.py` for examples and answers (must exit cleanly with correct
+  output / all `PASS`), and for exercise files confirm they raise
+  `NotImplementedError` until implemented. Don't rely on reading the code.
+  Run them non-interactively with `</dev/null` and a timeout; scripts using
+  `input()` need input piped (`printf 'Аня\n25\n' | python3 ...`), otherwise
+  the `EOFError` is a false failure.
+- Known intentional exceptions to "unsolved exercise raises
+  `NotImplementedError`": `4_oop/03_exercises/02-05` fail with
+  `TypeError`/`AttributeError` because the TODO is "add a method/`__init__`"
+  (nothing to raise from yet); `8_testing/03_exercises/*/` source modules run
+  clean because the task is to write the tests for them.
+
+## Renumbering history (watch for stale refs)
+
+`1_python/` was restructured once to add a true from-zero entry point. Old →
+new mapping, kept here so a future stale reference (old name surviving in
+prose, a comment, or a link) can be recognized on sight:
+
+| Old | New |
+|---|---|
+| (none — new) | `1_python_fundamentals` |
+| `1_basics` | `2_basics` |
+| `2_functions_and_decorators` | `3_functions_and_decorators` |
+| `3_oop` | `4_oop` |
+| `4_iterators_generators` | `5_iterators_generators` |
+| `5_concurrency` | `6_concurrency` |
+| `6_standard_library` | `7_standard_library` |
+| `7_testing` | `8_testing` |
+| `8_algorithms_dsa` | `9_algorithms_dsa` |
+| `9_under_the_hood` | `10_under_the_hood` |
+
+A first grep pass for stale references after this rename still missed 10
+occurrences (stale "Тема N" headers in 4 READMEs, stale old-path mentions
+inside theory prose) because it only checked for the literal old directory
+names as link targets, not prose references like "модуле `5_concurrency`"
+(now `6_concurrency`) or "Тема 4" headers that hadn't been bumped. **After any
+renumber, grep for old names as plain text, not just as link paths**, and
+re-check every README's own "Тема N" / "Раздел N" self-labeling.
+
+Second pass (theory-file renames inside sections, all links updated):
+`3_functions_and_decorators/01_theory` reordered (lambdas/args first);
+`4_oop/01_theory` shifted +1 after the new `01_what_is_a_class.md`;
+`9_algorithms_dsa/01_theory` 05→06 trees, 06→07 sorting, 07→08 DP (+ new
+`05_recursion_basics.md`); `3_web_frameworks/1_fastapi/01_theory` shifted +1
+after the new HTTP lesson; `2_django/01_theory` reordered (project structure
+first); the three monolithic `01_theory/README.md` files in
+`2_data_and_messaging` split into numbered lessons (each `01_theory/README.md`
+kept as a short index so inbound links survive); docker exercise
+`03_compose_with_db` → `03_compose_with_cache` (it uses Redis, not a DB).
+
+## Cross-Reference Discipline
+
+Sections and files link to each other via relative markdown links. Any
+rename, move, or reorder breaks an unpredictable number of these.
+
+**After any structural change, re-verify every relative link — don't rely on
+memory.** A code-fence-aware script does this reliably: glob all `*.md`
+files (including dot-directories like `.agents/` — Python's `glob.glob("**/*.md",
+recursive=True)` silently skips those, so dot-directories need an explicit
+separate path), skip lines inside ` ``` ` fences (otherwise Python tuple
+syntax like `(a, b)` in a code sample false-positives as a markdown link),
+regex-match `\]\(([^)]+)\)`, resolve each non-URL target against its file's
+directory with `os.path.normpath(os.path.join(dirname, link))`, and assert
+`os.path.exists`. Run it repo-wide, not just in the touched subtree.
+
+## Git & Workspace Discipline
+
+- **Do not commit without explicit instruction:** never create git commits
+  unless the user explicitly asks to commit — writing/editing files is fine
+  on request alone.
+
+## Validation Checklist (run after any batch of edits)
+
+1. **Relative links resolve** — see Cross-Reference Discipline script above;
+   run repo-wide.
+2. **No stray mixed-script glyphs** — a real self-introduced bug was a single
+   CJK character accidentally typed into Russian prose. Scan with
+   `grep -rnP '[\x{4e00}-\x{9fff}]'` across touched files. Also scan for
+   words glued from Latin + Cyrillic (real hits: "коммit", "formы",
+   "practике", "corutina", "materializировать", "momент"):
+   `grep -rnoP '\b\w*(?:[а-яё][a-z]|[a-z][а-яё])\w*\b' --include='*.md'
+   --include='*.py' .` — review hits by hand (`\nчисло` inside a string is
+   a legit escape, not a typo).
+3. **No stale old-numbering references** — grep for the "Old" column names
+   from the renumbering table above as plain text, not just as link targets.
+4. **Examples/answers run clean, exercises raise `NotImplementedError`** —
+   actually execute them (`python3 -m py_compile` is not a substitute for
+   running `_self_check()`). For a repo-wide syntax pass use `ast.parse` —
+   `py_compile` with `cfile="/dev/null"` errors on every file.
+6. **Factual correctness of code in theory** — run code blocks you add or
+   change. Real bugs this caught: missing `timezone` import in the datetime
+   lesson, FastAPI `x_token: str` read from query instead of header (needs
+   `Header()`), a coverage example that didn't demonstrate what it claimed
+   (verified the fix with real coverage.py), an LSP example where the base
+   class had no setter so nothing was violated, `__closure__` read off an
+   out-of-scope name.
+7. **Fence balance** — count of lines starting with ```` ``` ```` is even in
+   every `.md`.
+8. **Every section/topic has a README with "Зачем этот раздел"** (see
+   Section framing).
+5. **Clarity Principle** — for any new or reordered theory file, confirm
+   every construct used in its examples/exercises was already taught by an
+   earlier-numbered file in the same `01_theory/`, or by an earlier
+   subtopic/section in the repo's own reading order.

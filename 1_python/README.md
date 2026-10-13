@@ -1,8 +1,8 @@
 # Python
 
-Раздел по языку Python: от базовых типов данных до конкурентности,
-стандартной библиотеки, тестирования, алгоритмов и внутреннего устройства
-CPython.
+Раздел по языку Python: от переменных и синтаксиса с нуля до типов данных,
+конкурентности, стандартной библиотеки, тестирования, алгоритмов и
+внутреннего устройства CPython.
 
 ## Формат тем
 
@@ -17,47 +17,57 @@ CPython.
 
 ## Разделы
 
-1. [1_basics](./1_basics/) — изменяемость и хешируемость, встроенные
-   типы, коллекции (`list`/`tuple`/`set`/`dict`), comprehensions, control flow.
-2. [2_functions_and_decorators](./2_functions_and_decorators/) — функции
+1. [1_python_fundamentals](./1_python_fundamentals/) — переменные и типы,
+   операторы и выражения, `print`/`input`, `if`/`for`/`while` и отступы,
+   объявление функций через `def`, исключения (`try`/`except`/`raise`),
+   модули и `import`. Для тех, кто не писал на Python вообще.
+2. [2_basics](./2_basics/) — типы и коллекции изнутри: синтаксис
+   `list`/`tuple`/`set`/`dict` с нуля, почему `0.1 + 0.2 != 0.3`, общие
+   ссылки и изменяемость, почему список нельзя сделать ключом словаря и
+   почему `set` ищет быстрее `list`; comprehensions, `match`/`case`.
+3. [3_functions_and_decorators](./3_functions_and_decorators/) — функции
    как объекты первого класса, замыкания, декораторы (включая
    параметризованные), `*args`/`**kwargs`, контекст-менеджеры.
-3. [3_oop](./3_oop/) — магические методы, наследование и MRO, миксины,
+4. [4_oop](./4_oop/) — магические методы, наследование и MRO, миксины,
    dataclasses, `@property`, `Protocol` (структурная типизация), SOLID.
-4. [4_iterators_generators](./4_iterators_generators/) — протокол
+5. [5_iterators_generators](./5_iterators_generators/) — протокол
    итератора, генераторы и `yield`, `yield from`, ленивые вычисления, `itertools`.
-5. [5_concurrency](./5_concurrency/) — GIL и его следствия, выбор между
+6. [6_concurrency](./6_concurrency/) — GIL и его следствия, выбор между
    `threading`/`multiprocessing`/`asyncio`, event loop и корутины,
    примитивы синхронизации, `gather`/`as_completed`/`TaskGroup`,
    `concurrent.futures`, паттерны конкурентного I/O. Самый большой раздел базы.
-6. [6_standard_library](./6_standard_library/) — `collections`
+7. [7_standard_library](./7_standard_library/) — `collections`
    (`Counter`/`defaultdict`/`deque`/`namedtuple`), `functools`/`itertools`
    сверх базового (`lru_cache`, `partial`, `reduce`), `datetime`/`zoneinfo`,
    `re`, `json`/`csv`, `pathlib`/`os`, `logging`.
-7. [7_testing](./7_testing/) — pytest как стандарт де-факто: fixtures,
+8. [8_testing](./8_testing/) — pytest как стандарт де-факто: fixtures,
    parametrize, mocks (`unittest.mock`, `monkeypatch`), маркеры, `coverage`,
    сравнение с `unittest`.
-8. [8_algorithms_dsa](./8_algorithms_dsa/) — О-нотация, массивы/строки,
+9. [9_algorithms_dsa](./9_algorithms_dsa/) — О-нотация, массивы/строки,
    связные списки, стек/очередь, деревья/хеш-таблицы, сортировка/поиск,
    рекурсия и динамическое программирование — развитие алгоритмического мышления.
-9. [9_under_the_hood](./9_under_the_hood/) — модель памяти CPython и
-   подсчёт ссылок, generational garbage collector, байткод и `dis`,
-   профилирование (`cProfile`/`timeit`/`tracemalloc`), альтернативные
-   реализации Python (PyPy и другие).
+10. [10_under_the_hood](./10_under_the_hood/) — модель памяти CPython и
+    подсчёт ссылок, generational garbage collector, байткод и `dis`,
+    профилирование (`cProfile`/`timeit`/`tracemalloc`), альтернативные
+    реализации Python (PyPy и другие).
 
 ## Как проходить
 
-1. Начать с `1_basics`, чтобы закрыть типы данных и базовые конструкции языка.
-2. Перейти к `2_functions_and_decorators` и `3_oop`: функции как объекты,
+1. Начать с `1_python_fundamentals`, если раньше не писал на Python —
+   переменные, типы, `if`/`for`/`while`, функции. Если синтаксис уже знаком,
+   можно начать сразу с `2_basics`.
+2. `2_basics` — понять, почему код с коллекциями иногда ведёт себя
+   неожиданно, и научиться выбирать между `list`/`tuple`/`set`/`dict`.
+3. Перейти к `3_functions_and_decorators` и `4_oop`: функции как объекты,
    декораторы, объектная модель Python.
-3. `4_iterators_generators` — ленивые вычисления, важны перед разделом
+4. `5_iterators_generators` — ленивые вычисления, важны перед разделом
    про конкурентность (корутины исторически выросли из генераторов).
-4. `5_concurrency` — самый объёмный раздел: GIL, asyncio, потоки и процессы.
-5. Параллельно разбирать `6_standard_library` и `7_testing`, запуская
+5. `6_concurrency` — самый объёмный раздел: GIL, asyncio, потоки и процессы.
+6. Параллельно разбирать `7_standard_library` и `8_testing`, запуская
    примеры и упражнения локально.
-6. `8_algorithms_dsa` — отдельный блок для развития алгоритмического
+7. `9_algorithms_dsa` — отдельный блок для развития алгоритмического
    мышления, можно проходить в любой момент.
-7. `9_under_the_hood` — для понимания того, что происходит под капотом
+8. `10_under_the_hood` — для понимания того, что происходит под капотом
    написанного ранее кода: память, GC, байткод, профилирование.
 
 ## Критерии качества темы

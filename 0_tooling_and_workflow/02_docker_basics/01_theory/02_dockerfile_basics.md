@@ -16,6 +16,17 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
+Python-специфичные вещи в этом примере (сам Python — дальше, в `1_python`):
+
+- **`pip`** — стандартный установщик Python-библиотек; `pip install -r
+  requirements.txt` ставит все библиотеки из списка. Подробнее — в
+  [01_environments_and_packaging](../../../other/01_environments_and_packaging/README.md).
+- **`requirements.txt`** — текстовый файл со списком библиотек (и их
+  версий), которые нужны приложению.
+- **`uvicorn`** — веб-сервер, который запускает Python веб-приложение
+  (`main:app` — «объект `app` из файла `main.py`»); разбирается в
+  `3_web_frameworks`.
+
 ## Инструкции по порядку
 
 | Инструкция | Назначение |
@@ -39,6 +50,9 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ENTRYPOINT ["python", "manage.py"]
 CMD ["runserver"]
 ```
+
+(`manage.py` — стандартный скрипт управления Django-проектом:
+`runserver` запускает сервер разработки, `shell` — интерактивную консоль.)
 
 `docker run myimage runserver` → выполнит `python manage.py runserver`.
 `docker run myimage shell` → выполнит `python manage.py shell` (CMD

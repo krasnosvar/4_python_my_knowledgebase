@@ -53,7 +53,8 @@ def cached_get_product(r: redis.Redis, product_id: int) -> dict[str, Any] | None
 def invalidate_product(r: redis.Redis, product_id: int) -> None:
     # Удаляем, а не перезаписываем новым значением: удаление корректно в
     # любом порядке событий, тогда как запись нового значения из write-пути
-    # рискует проиграть гонку с параллельным читателем (см. теорию, раздел 5).
+    # рискует проиграть гонку с параллельным читателем (см.
+    # 01_theory/05_cache_invalidation.md).
     r.delete(cache_key_for(product_id))
 
 

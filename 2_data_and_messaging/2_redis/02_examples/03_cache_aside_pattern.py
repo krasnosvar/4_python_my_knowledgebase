@@ -65,7 +65,8 @@ def update_user(r: redis.Redis, user_id: int, **fields: Any) -> None:
     честно перечитает уже обновлённые данные из "БД" и сам заполнит кеш
     актуальным значением. Это надёжнее, чем пытаться записать новое
     значение в кеш прямо тут: не нужно гадать, не обогнала ли эта запись
-    какую-то параллельную (см. раздел 5 теории про race condition)."""
+    какую-то параллельную (см. 01_theory/05_cache_invalidation.md про race
+    condition)."""
     if user_id in _FAKE_DB:
         _FAKE_DB[user_id].update(fields)
     r.delete(cache_key_for(user_id))

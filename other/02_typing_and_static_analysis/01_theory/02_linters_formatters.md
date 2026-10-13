@@ -97,5 +97,5 @@ pre-commit run --all-files  # прогнать вручную на всех фа
 
 После этого `ruff`/`ruff format` запускаются автоматически при каждом
 `git commit` (см.
-[../../0_tooling_and_workflow/01_git_essentials/01_theory/03_conflicts_and_hygiene.md](../../0_tooling_and_workflow/01_git_essentials/01_theory/03_conflicts_and_hygiene.md)
+[../../../0_tooling_and_workflow/01_git_essentials/01_theory/03_conflicts_and_hygiene.md](../../../0_tooling_and_workflow/01_git_essentials/01_theory/03_conflicts_and_hygiene.md)
 про commit hygiene) — код, не проходящий проверки, просто не закоммитится.

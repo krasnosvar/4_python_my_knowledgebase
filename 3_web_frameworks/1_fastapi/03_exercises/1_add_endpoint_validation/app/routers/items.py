@@ -12,7 +12,7 @@ router = APIRouter(prefix="/items", tags=["items"])
 
 # def-роут: тело синхронное (обычная работа с SQLAlchemy Session), FastAPI
 # сам исполнит его в threadpool — блокирующие вызовы к БД не остановят
-# event loop. См. 01_theory/01_async_endpoints.md.
+# event loop. См. 01_theory/02_async_endpoints.md.
 @router.post("", response_model=ItemRead, status_code=status.HTTP_201_CREATED)
 def create_item(payload: ItemCreate, db: Session = Depends(get_db)) -> ItemRead:
     item = Item(name=payload.name, description=payload.description, price=payload.price)
@@ -55,7 +55,7 @@ def update_item(item_id: int, payload: ItemUpdate, db: Session = Depends(get_db)
 # async def-роут: реального async I/O здесь нет, только asyncio.sleep как
 # заглушка "похода во внешний сервис" (например, курс валют перед показом
 # цены). Это учебная демонстрация того, что await отдаёт event loop другим
-# запросам на время ожидания — см. 01_theory/01_async_endpoints.md про то,
+# запросам на время ожидания — см. 01_theory/02_async_endpoints.md про то,
 # когда async def даёт реальную выгоду (настоящий асинхронный I/O), а когда
 # нет смысла его использовать.
 @router.get("/{item_id}/with-external-check", response_model=ItemRead)

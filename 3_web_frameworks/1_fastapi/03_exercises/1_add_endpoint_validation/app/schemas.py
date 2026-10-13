@@ -48,7 +48,7 @@ class ItemMeta(BaseModel):
 class ItemRead(BaseModel):
     """Схема ответа API. from_attributes=True позволяет собрать её
     напрямую из ORM-объекта Item (item.id, item.name и т.д.), см.
-    01_theory/02_pydantic.md."""
+    01_theory/03_pydantic.md."""
 
     model_config = ConfigDict(from_attributes=True)
 

@@ -1,6 +1,6 @@
 """Упражнение 4 (RabbitMQ) - решение: полный цикл DLQ с retry-with-backoff.
 
-Почему такая топология (см. 01_theory/README.md, раздел 4):
+Почему такая топология (см. 01_theory/07_dlq_and_retry.md):
   - payments_queue настроена с x-dead-letter-exchange=payments_dlx - это
     единственное, что нужно RabbitMQ, чтобы САМОСТОЯТЕЛЬНО переложить
     сообщение в DLQ при nack(requeue=False). Никакого отдельного кода

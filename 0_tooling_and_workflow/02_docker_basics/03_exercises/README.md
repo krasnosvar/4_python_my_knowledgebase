@@ -17,7 +17,7 @@ bash check.sh
    stdlib-приложения.
 2. `02_fix_broken_dockerfile` — найти и исправить ошибки в существующем
    Dockerfile (несоответствие имени файла и порта).
-3. `03_compose_with_db` — написать `docker-compose.yml` с сервисом
+3. `03_compose_with_cache` — написать `docker-compose.yml` с сервисом
    приложения и сервисом кэша (Redis), связав их через сеть compose.
 
 Эталонные решения — в `../04_exercises_answers/`, вместе с `solve.sh`,

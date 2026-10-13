@@ -7,7 +7,7 @@
 Запуск: python 03_indexes_and_explain.py
 Предполагает, что schema.sql уже применён и в orders ~200 000 строк
 (на маленькой таблице планировщик может честно выбрать Seq Scan даже
-после создания индекса -- см. раздел про планировщик в 01_theory/README.md).
+после создания индекса -- см. урок 01_theory/11_query_planner.md).
 """
 from __future__ import annotations
 

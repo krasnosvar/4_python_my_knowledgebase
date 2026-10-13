@@ -21,13 +21,14 @@ FastAPI, Django, Celery — и как выбирать между ними по�
 
 ## Разделы
 
-1. [1_fastapi](./1_fastapi/) — async-first фреймворк: когда `async def`
-   реально даёт выгоду, Pydantic (валидация, модели, вложенные схемы,
-   особенности v2), Dependency Injection, Alembic-миграции поверх
-   SQLAlchemy.
-2. [2_django](./2_django/) — batteries-included фреймворк: ленивые
-   QuerySet'ы, `select_related`/`prefetch_related` и решение N+1 на
-   уровне ORM, структура Django-проекта (apps/models/views/urls),
+1. [1_fastapi](./1_fastapi/) — async-first фреймворк: основы HTTP
+   (методы, статус-коды, запрос/ответ) и первое приложение, когда
+   `async def` реально даёт выгоду, Pydantic (валидация, модели,
+   вложенные схемы, особенности v2), Dependency Injection,
+   Alembic-миграции поверх SQLAlchemy.
+2. [2_django](./2_django/) — batteries-included фреймворк: структура
+   проекта и модели, ленивые QuerySet'ы,
+   `select_related`/`prefetch_related` и решение N+1 на уровне ORM,
    сигналы.
 3. [3_celery](./3_celery/) — вынесение тяжёлой работы за пределы
    запроса: архитектура (broker/worker/result backend), задачи и

@@ -5,7 +5,7 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 # чтобы запустить приложение и миграции. В реальном async-сервисе на
 # asyncpg/PostgreSQL вместо create_engine/sessionmaker использовался бы
 # create_async_engine/async_sessionmaker из sqlalchemy.ext.asyncio — см.
-# 01_theory/01_async_endpoints.md про то, когда async-драйвер БД реально нужен.
+# 01_theory/02_async_endpoints.md про то, когда async-драйвер БД реально нужен.
 SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
 
 engine = create_engine(

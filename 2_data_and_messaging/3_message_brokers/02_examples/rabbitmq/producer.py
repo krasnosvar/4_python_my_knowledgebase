@@ -1,6 +1,6 @@
 """RabbitMQ producer: публикация в topic exchange с разными routing key.
 
-Демонстрирует маршрутизацию по паттерну (см. 01_theory/README.md, раздел 3.4):
+Демонстрирует маршрутизацию по паттерну (см. 01_theory/06_rabbitmq.md):
   - exchange "orders_topic" типа topic;
   - routing key вида "orders.<страна>.<событие>";
   - разные сообщения уйдут в разные очереди в зависимости от того, как

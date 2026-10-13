@@ -2,8 +2,9 @@
 
 Рабочие Python-примеры producer/consumer для обоих брокеров поверх локального
 Docker Compose стенда. Перед запуском рекомендуется прочитать
-`../01_theory/README.md` - примеры используют термины (партиция, consumer-группа,
-exchange, routing key, DLX) без повторного объяснения.
+уроки из [../01_theory/](../01_theory/README.md) - примеры используют термины
+(партиция, consumer-группа, exchange, routing key, DLX) без повторного
+объяснения.
 
 ## Структура
 

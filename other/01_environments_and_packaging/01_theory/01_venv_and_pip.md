@@ -38,7 +38,7 @@ pip show requests                  # версия, зависимости, гд�
 повторной активации.
 
 `.venv/` **никогда** не коммитится в git — добавляйте в `.gitignore` (см.
-[../../0_tooling_and_workflow/01_git_essentials](../../0_tooling_and_workflow/01_git_essentials/)).
+[../../../0_tooling_and_workflow/01_git_essentials](../../../0_tooling_and_workflow/01_git_essentials/)).
 Она воссоздаётся из `requirements.txt`/`pyproject.toml` на любой машине.
 
 ## requirements.txt

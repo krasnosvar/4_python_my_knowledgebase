@@ -8,7 +8,7 @@
 не нужно поднимать внешнюю БД. В реальном async-сервисе на месте
 `create_engine`/`sessionmaker` (синхронный SQLAlchemy) был бы
 `create_async_engine`/`async_sessionmaker` поверх `asyncpg` — см.
-`01_theory/01_async_endpoints.md` о том, когда это действительно нужно.
+`01_theory/02_async_endpoints.md` о том, когда это действительно нужно.
 
 ## Структура
 

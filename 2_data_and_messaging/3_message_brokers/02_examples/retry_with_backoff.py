@@ -1,8 +1,8 @@
 """Generic retry-with-exponential-backoff helper.
 
 Используется в rabbitmq/consumer.py перед тем, как окончательно признать
-сообщение необрабатываемым и отправить его в DLQ (см. 01_theory/README.md,
-раздел 4 - "Dead Letter Queue и retry с backoff").
+сообщение необрабатываемым и отправить его в DLQ (см.
+01_theory/07_dlq_and_retry.md - "Dead Letter Queue и retry с backoff").
 
 Идея: вместо того, чтобы либо мгновенно ретраить в цикле (busy loop,
 блокирует consumer и не решает проблему временной недоступности зависимости),

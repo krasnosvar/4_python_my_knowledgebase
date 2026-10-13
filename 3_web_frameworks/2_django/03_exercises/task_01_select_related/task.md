@@ -20,4 +20,4 @@
    числа книг.
 
 Проверка использует `CaptureQueriesContext` — как именно, см.
-[01_theory/01_lazy_querysets.md](../../01_theory/01_lazy_querysets.md).
+[01_theory/02_lazy_querysets.md](../../01_theory/02_lazy_querysets.md).

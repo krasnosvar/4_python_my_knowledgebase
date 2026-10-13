@@ -31,7 +31,7 @@
    Важно: для `ManyToMany` `select_related` не подходит — Django поднимет
    ошибку, потому что такую связь нельзя развернуть в обычный JOIN без
    дублирования строк. Разница объяснена в
-   [01_theory/02_select_related_prefetch_related.md](../../01_theory/02_select_related_prefetch_related.md).
+   [01_theory/03_select_related_prefetch_related.md](../../01_theory/03_select_related_prefetch_related.md).
 
 5. Запустить снова — число запросов должно стать равным `2`, независимо
    от числа книг.
