@@ -16,6 +16,23 @@ mocks (`unittest.mock`, `monkeypatch`), маркеры, покрытие тес�
 много входных данных одним тестом и понимать, что на самом деле значит
 процент покрытия.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — команды pytest, fixtures, parametrize, моки, маркеры, coverage, соответствие unittest ↔ pytest.
+
+## Что нужно знать заранее
+
+- [1_python_fundamentals](../1_python_fundamentals/) — функции, исключения,
+  `import`.
+- [3_functions_and_decorators](../3_functions_and_decorators/) — декораторы
+  (`@pytest.fixture`, `@pytest.mark...`) и `with` (`pytest.raises`,
+  `patch`).
+- [4_oop](../4_oop/) — классы и методы: моки подменяют объекты и их
+  методы.
+- [7_standard_library](../7_standard_library/) — `pathlib` и `datetime`
+  встречаются в упражнениях.
+- Виртуальное окружение и `pip` —
+  [other/01_environments_and_packaging](../../other/01_environments_and_packaging/):
+  pytest не входит в стандартную библиотеку, его нужно установить.
+
 ## Структура раздела
 
 - **[01_theory/](./01_theory/)** — теория:
@@ -51,7 +68,12 @@ mocks (`unittest.mock`, `monkeypatch`), маркеры, покрытие тес�
 
 ## Запуск
 
+pytest и pytest-cov — сторонние пакеты. Ставьте их в виртуальное окружение,
+а не в системный Python: как создать и активировать venv, описано в
+[other/01_environments_and_packaging](../../other/01_environments_and_packaging/).
+
 ```bash
+python3 -m venv .venv && source .venv/bin/activate   # один раз, см. ссылку выше
 pip install pytest pytest-cov
 
 pytest 02_examples/01_pytest_basic_tests -v
@@ -60,3 +82,11 @@ pytest 03_exercises/01_write_unit_tests_for_calculator -v
 # покрытие (требует pytest-cov)
 pytest 02_examples/06_coverage_demo --cov=discount --cov-report=term-missing
 ```
+
+## Когда двигаться дальше
+
+Когда можете написать тест с fixture и `parametrize`, проверить
+исключение через `pytest.raises`, подменить внешний вызов через
+`unittest.mock.patch` или `monkeypatch` и прочитать отчёт покрытия —
+переходите к [9_algorithms_dsa](../9_algorithms_dsa/). Навык писать тесты
+пригодится во всех следующих разделах.

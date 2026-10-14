@@ -34,15 +34,22 @@ def parse_all(lines: list[str]) -> list[dict[str, str]]:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 4
     parsed = parse_all(LOG_LINES)
 
     assert parsed[1]["level"] == "ERROR"
+    checks_passed += 1
     assert parsed[1]["component"] == "user_service"
+    checks_passed += 1
     assert parsed[1]["message"] == "connection timeout"
+    checks_passed += 1
     assert parsed[0]["timestamp"] == "2026-08-21 12:00:00"
+    checks_passed += 1
 
     for entry in parsed:
         print(entry)
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

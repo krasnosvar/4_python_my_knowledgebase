@@ -15,10 +15,15 @@ def managed_resource(name: str):
 
 
 if __name__ == "__main__":
+    checks_passed = 0
+    total_checks = 3
+
     events.clear()
     with managed_resource("db") as name:
         assert name == "db"
+        checks_passed += 1
     assert events == ["open:db", "close:db"], f"FAIL: {events}"
+    checks_passed += 1
 
     events.clear()
     try:
@@ -30,5 +35,6 @@ if __name__ == "__main__":
         raise AssertionError("FAIL: исключение должно было пробрасываться наружу")
 
     assert events == ["open:cache", "close:cache"], f"FAIL: очистка не произошла: {events}"
+    checks_passed += 1
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")

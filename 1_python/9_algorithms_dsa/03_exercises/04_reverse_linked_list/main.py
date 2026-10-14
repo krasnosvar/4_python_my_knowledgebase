@@ -44,17 +44,22 @@ def reverse(head: ListNode | None) -> ListNode | None:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 3
     head = from_list([1, 2, 3, 4, 5])
     reversed_head = reverse(head)
     assert to_list(reversed_head) == [5, 4, 3, 2, 1]
+    checks_passed += 1
 
     empty_result = reverse(None)
     assert empty_result is None
+    checks_passed += 1
 
     single = from_list([42])
     assert to_list(reverse(single)) == [42]
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

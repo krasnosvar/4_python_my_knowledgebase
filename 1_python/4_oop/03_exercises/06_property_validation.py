@@ -54,14 +54,15 @@ def main() -> None:
         (account.balance == 150, "баланс не изменился после отклонённых операций"),
     ]
 
-    all_ok = True
+    checks_passed = 0
+    total_checks = len(checks)
     for ok, description in checks:
         status = "PASS" if ok else "FAIL"
-        if not ok:
-            all_ok = False
+        if ok:
+            checks_passed += 1
         print(f"[{status}] {description}")
 
-    print("PASS" if all_ok else "FAIL")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

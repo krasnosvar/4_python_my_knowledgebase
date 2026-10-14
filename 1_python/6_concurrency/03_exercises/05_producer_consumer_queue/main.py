@@ -30,6 +30,9 @@ async def consumer(queue: asyncio.Queue, results: list[int]) -> None:
 
 
 async def main() -> None:
+    checks_passed = 0
+    total_checks = 1
+
     n_items = 50
     n_consumers = 3
     queue: asyncio.Queue = asyncio.Queue(maxsize=10)
@@ -41,7 +44,9 @@ async def main() -> None:
     )
 
     assert sorted(results) == [i * i for i in range(n_items)]
+    checks_passed += 1
     print(f"Обработано элементов: {len(results)}")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

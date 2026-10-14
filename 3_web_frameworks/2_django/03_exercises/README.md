@@ -14,9 +14,9 @@ python manage.py demo_n_plus_one   # создаст тестовые данны�
 `../02_examples/library/management/commands/` и запускайте через
 `python manage.py <имя_файла_без_.py>`.
 
-- [task_01_select_related](./task_01_select_related/) — N+1 через прямой
+- [01_select_related](./01_select_related/) — N+1 через прямой
   ForeignKey, чинится `select_related`.
-- [task_02_prefetch_related](./task_02_prefetch_related/) — N+1 через
+- [02_prefetch_related](./02_prefetch_related/) — N+1 через
   ManyToMany, чинится `prefetch_related`.
 
 Порядок работы над каждым упражнением:

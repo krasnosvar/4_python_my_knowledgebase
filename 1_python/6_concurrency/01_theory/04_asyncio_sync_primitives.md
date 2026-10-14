@@ -113,7 +113,7 @@ consumer'а бесконтрольно. `task_done()` + `await queue.join()` в 
 | `asyncio.Semaphore` | `threading.Semaphore` | тот же смысл, разный примитив ожидания |
 | `asyncio.Event` | `threading.Event` | идентичная семантика set/wait |
 | `asyncio.Condition` | `threading.Condition` | идентичная семантика, разный scheduler |
-| `asyncio.Queue` | `queue.Queue` | `queue.Queue` — потокобезопасная блокирующая очередь для потоков/процессов; `asyncio.Queue` — кооперативная, для корутин одного event loop |
+| `asyncio.Queue` | `queue.Queue` | `queue.Queue` — потокобезопасная блокирующая очередь для потоков (для процессов — `multiprocessing.Queue`); `asyncio.Queue` — кооперативная, для корутин одного event loop |
 
 Важно не перепутать модули: `queue.Queue` из стандартной библиотеки — то,
 что используется между `threading.Thread`, она **потокобезопасна** и

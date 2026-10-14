@@ -57,15 +57,20 @@ def create_without_cycle() -> None:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 3
     collected = create_cycle_and_collect()
     assert collected >= 2, f"gc.collect() должен был собрать хотя бы 2 объекта, собрал {collected}"
+    checks_passed += 1
     assert set(destroyed) == {"a", "b"}, f"ожидали {{'a', 'b'}}, получили {set(destroyed)}"
+    checks_passed += 1
 
     destroyed.clear()
     create_without_cycle()
     assert set(destroyed) == {"c", "d"}, f"ожидали {{'c', 'd'}}, получили {set(destroyed)}"
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

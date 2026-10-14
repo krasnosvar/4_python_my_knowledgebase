@@ -10,6 +10,17 @@ production-проектов, и почти в каждом рано или по�
 в SQL, почему безобидный цикл может отправить в базу сотни запросов и
 как это исправить.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — `manage.py`, когда QuerySet идёт в БД, `select_related` vs `prefetch_related`, сигналы.
+
+## Что нужно знать заранее
+
+- Классы и объекты из [1_python/4_oop](../../1_python/4_oop/) — модели
+  Django описываются классами.
+- Базовый SQL (`SELECT`, `JOIN`, внешние ключи) и проблема N+1 из
+  [2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).
+- Виртуальное окружение и `pip install -r requirements.txt` —
+  [other/01_environments_and_packaging](../../other/01_environments_and_packaging/).
+
 ## Структура темы
 
 - **[01_theory/](./01_theory/)** — теория, читать по порядку (оглавление —
@@ -35,5 +46,8 @@ production-проектов, и почти в каждом рано или по�
 3. Выполнить упражнения из `03_exercises/`, сверить с
    `04_exercises_answers/`.
 
-Нужен базовый SQL (`SELECT`, `JOIN`, внешние ключи) из
-[2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).
+## Когда двигаться дальше
+
+Когда ты можешь по коду цикла над QuerySet предсказать, сколько SQL-запросов
+он сделает, и выбрать между `select_related` и `prefetch_related` —
+переходи к [3_celery](../3_celery/).

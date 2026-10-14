@@ -22,6 +22,39 @@ content-addressable storage), а не список изменений относ
 предыдущей версии. Это объясняет, почему переключение веток и большинство
 операций в Git такие быстрые.
 
+## Установка и первая настройка
+
+Проверьте, установлен ли Git:
+
+```bash
+git --version
+```
+
+Если команда не найдена:
+
+- **Linux**: `sudo apt install git` (Ubuntu/Debian) или
+  `sudo dnf install git` (Fedora);
+- **macOS**: `xcode-select --install` или `brew install git`;
+- **Windows**: установщик с [git-scm.com](https://git-scm.com/download/win).
+  Вместе с ним ставится **Git Bash** — терминал, в котором работают все
+  команды из этого раздела.
+
+Один раз на компьютере представьтесь Git — имя и email записываются в
+каждый ваш коммит:
+
+```bash
+git config --global user.name "Имя Фамилия"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main   # имя первой ветки в новых репозиториях
+git config --global core.editor nano           # редактор для сообщений коммитов
+```
+
+Последняя строка не обязательна, но полезна: некоторые команды (`git
+commit` без `-m`, `git merge`) открывают редактор. По умолчанию это часто
+`vim`, из которого новичку трудно выйти (`Esc`, затем `:wq` и `Enter`).
+
+Проверить настройки: `git config --global --list`.
+
 ## Три области Git
 
 - **Working directory** — файлы на диске, с которыми вы реально работаете.

@@ -2,7 +2,7 @@
 
 Запуск задания: `python 03_exercises/01_threading_word_count/main.py`
 
-Ответы: `python 04_exercises_answers/01_threading_word_count_answers/main.py`
+Ответы: `python 04_exercises_answers/01_threading_word_count/main.py`
 
 1. `01_threading_word_count` — I/O-bound задача на threading.
 2. `02_multiprocessing_prime_check` — CPU-bound задача на multiprocessing.

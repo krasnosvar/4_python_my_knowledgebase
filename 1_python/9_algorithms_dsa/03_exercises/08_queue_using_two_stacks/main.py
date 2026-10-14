@@ -35,25 +35,33 @@ class QueueViaStacks:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 6
     q = QueueViaStacks()
     q.enqueue(1)
     q.enqueue(2)
     q.enqueue(3)
 
     assert q.dequeue() == 1
+    checks_passed += 1
     q.enqueue(4)
     assert q.dequeue() == 2
+    checks_passed += 1
     assert q.dequeue() == 3
+    checks_passed += 1
     assert q.dequeue() == 4
+    checks_passed += 1
     assert q.is_empty()
+    checks_passed += 1
 
     try:
         q.dequeue()
         assert False, "должно было бросить IndexError"
     except IndexError:
         pass
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

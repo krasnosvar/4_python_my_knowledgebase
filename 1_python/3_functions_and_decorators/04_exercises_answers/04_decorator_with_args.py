@@ -38,8 +38,13 @@ def always_fails() -> None:
 
 
 if __name__ == "__main__":
+    checks_passed = 0
+    total_checks = 2
+
     assert eventually_succeeds() == "готово"
+    checks_passed += 1
     assert _calls_made["count"] == 3, f"FAIL: сделано попыток {_calls_made['count']}"
+    checks_passed += 1
 
     try:
         always_fails()
@@ -47,4 +52,4 @@ if __name__ == "__main__":
     except RuntimeError:
         pass
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")

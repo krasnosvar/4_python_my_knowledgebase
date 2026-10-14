@@ -45,16 +45,22 @@ def merge_two_lists(l1: ListNode | None, l2: ListNode | None) -> ListNode | None
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 4
     l1 = from_list([1, 3, 5])
     l2 = from_list([2, 4, 6])
     merged = merge_two_lists(l1, l2)
     assert to_list(merged) == [1, 2, 3, 4, 5, 6]
+    checks_passed += 1
 
     assert to_list(merge_two_lists(None, from_list([1, 2]))) == [1, 2]
+    checks_passed += 1
     assert to_list(merge_two_lists(from_list([1, 2]), None)) == [1, 2]
+    checks_passed += 1
     assert merge_two_lists(None, None) is None
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -42,12 +42,16 @@ def build_pipeline(n: int) -> Iterator[int]:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 2
+
     processed_counter["count"] = 0
 
     pipeline = build_pipeline(1_000_000)
     first_three = list(islice(pipeline, 3))
 
     assert first_three == [0, 4, 8], f"first_three: {first_three}"
+    checks_passed += 1
 
     # если пайплайн действительно ленив, для получения первых трёх
     # результатов (0, 2, 4 - которые чётные) не должно быть обработано
@@ -57,9 +61,10 @@ def main() -> None:
         f"пайплайн не ленив: expensive_filter обработал {processed} элементов "
         "вместо нескольких - похоже, где-то материализуется список"
     )
+    checks_passed += 1
 
     print(f"Обработано элементов до получения первых трёх результатов: {processed}")
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

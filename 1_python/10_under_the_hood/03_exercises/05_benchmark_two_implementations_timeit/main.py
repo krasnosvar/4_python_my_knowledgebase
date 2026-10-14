@@ -32,10 +32,14 @@ def benchmark_speedup(number: int = 1000) -> float:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     speedup = benchmark_speedup()
     print(f"set быстрее list в x{speedup:.1f} раз на проверке 'in' по 10000 элементам")
 
     assert speedup > 5, f"ожидали заметное ускорение (>5x), получили x{speedup:.1f}"
+    checks_passed += 1
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@
 
 ## Упражнение 1 - партиционирование и порядок сообщений (Kafka)
 
-Файлы: `ex1_kafka_ordering/producer.py`, `ex1_kafka_ordering/consumer.py`
+Файлы: `01_kafka_ordering/producer.py`, `01_kafka_ordering/consumer.py`
 
 Задача: создать новый topic `events` с 3 партициями, отправить в него события
 с ключом `user_id` и на практике убедиться, что:
@@ -52,7 +52,7 @@ http://localhost:8080 открой topic `events` -> Messages, отсортир�
 
 ## Упражнение 2 - manual commit offset'а (Kafka)
 
-Файлы: `ex2_manual_commit/producer.py`, `ex2_manual_commit/consumer.py`
+Файлы: `02_manual_commit/producer.py`, `02_manual_commit/consumer.py`
 
 Задача: реализовать consumer с топиком `manual-commit-demo`, который коммитит
 offset ТОЛЬКО после успешной обработки сообщения, а не по таймеру.
@@ -83,8 +83,8 @@ consumer'а сообщение №5 должно быть прочитано с�
 
 ## Упражнение 3 - topic exchange с двумя очередями (RabbitMQ)
 
-Файлы: `ex3_rabbitmq_routing/producer.py`, `ex3_rabbitmq_routing/consumer_a.py`,
-`ex3_rabbitmq_routing/consumer_b.py`
+Файлы: `03_rabbitmq_routing/producer.py`, `03_rabbitmq_routing/consumer_a.py`,
+`03_rabbitmq_routing/consumer_b.py`
 
 Задача: сервисы публикуют логи с routing key вида `logs.<service>.<level>`,
 например `logs.auth.error`, `logs.billing.warning`, `logs.auth.info`.
@@ -118,7 +118,7 @@ consumer'а сообщение №5 должно быть прочитано с�
 
 ## Упражнение 4 - DLQ с retry-with-backoff (RabbitMQ)
 
-Файлы: `ex4_dlq_retry/producer.py`, `ex4_dlq_retry/consumer.py`
+Файлы: `04_dlq_retry/producer.py`, `04_dlq_retry/consumer.py`
 
 Задача: реализовать полный цикл dead-lettering: сообщение, которое не
 обрабатывается N попыток подряд (с задержкой между попытками), должно

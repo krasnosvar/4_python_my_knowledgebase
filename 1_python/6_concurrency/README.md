@@ -20,6 +20,17 @@ event loop, гонки данных, потерянные фоновые зад�
 Раздел начинается с объяснения простыми словами, что такое процесс, поток
 и конкурентность, — заранее знать это не нужно.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — что выбрать (threading / multiprocessing / asyncio), API asyncio, примитивы, executors, ловушки.
+
+## Что нужно знать заранее
+
+- [3_functions_and_decorators](../3_functions_and_decorators/README.md) —
+  функции как значения и контекст-менеджеры (`with lock:`, `async with`).
+- [4_oop](../4_oop/README.md) — классы (примитивы синхронизации и
+  executors — это объекты с методами).
+- [5_iterators_generators](../5_iterators_generators/README.md) — корутины
+  исторически выросли из генераторов, `send()` поможет понять `await`.
+
 ## Структура раздела
 
 - **[01_theory/](./01_theory/)** — теория (порядок важен):
@@ -62,3 +73,10 @@ python 03_exercises/03_asyncio_fetch_many/main.py
 ```
 
 Требуется Python 3.11+ (используется `asyncio.TaskGroup` и `except*`).
+
+## Когда двигаться дальше
+
+Когда можете для конкретной задачи обоснованно выбрать threading,
+multiprocessing или asyncio, объяснить, почему блокирующий вызов внутри
+`async def` останавливает весь сервис, и ограничить параллелизм через
+`Semaphore`, — переходите к [7_standard_library](../7_standard_library/README.md).

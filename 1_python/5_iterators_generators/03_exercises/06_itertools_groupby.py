@@ -35,14 +35,21 @@ def group_by_department(employees: list[Employee]) -> dict[str, list[str]]:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 4
+
     result = group_by_department(EMPLOYEES)
 
     assert set(result.keys()) == {"Engineering", "Sales", "Marketing"}, result.keys()
+    checks_passed += 1
     assert sorted(result["Engineering"]) == ["Алиса", "Виктор", "Елена"], result["Engineering"]
+    checks_passed += 1
     assert sorted(result["Sales"]) == ["Борис", "Дмитрий"], result["Sales"]
+    checks_passed += 1
     assert sorted(result["Marketing"]) == ["Галина"], result["Marketing"]
+    checks_passed += 1
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

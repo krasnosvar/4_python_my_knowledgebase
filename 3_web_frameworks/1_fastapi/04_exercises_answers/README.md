@@ -4,11 +4,11 @@
 директорий — можно сравнить своё решение с эталонным через `diff -r`:
 
 ```bash
-diff -r ../03_exercises/1_add_endpoint_validation ./1_add_endpoint_validation
-diff -r ../03_exercises/2_alembic_migration ./2_alembic_migration
+diff -r ../03_exercises/01_add_endpoint_validation ./01_add_endpoint_validation
+diff -r ../03_exercises/02_alembic_migration ./02_alembic_migration
 ```
 
-1. **[1_add_endpoint_validation](./1_add_endpoint_validation/)** — `PATCH /items/{id}`
+1. **[01_add_endpoint_validation](./01_add_endpoint_validation/)** — `PATCH /items/{id}`
    с валидацией через `ItemUpdate`.
-2. **[2_alembic_migration](./2_alembic_migration/)** — миграция, добавляющая
+2. **[02_alembic_migration](./02_alembic_migration/)** — миграция, добавляющая
    колонку `in_stock` к существующей таблице `items`.

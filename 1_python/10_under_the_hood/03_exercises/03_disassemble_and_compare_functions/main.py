@@ -31,6 +31,8 @@ def count_instructions(func) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     plus_instructions = count_instructions(build_string_with_plus)
     join_instructions = count_instructions(build_string_with_join)
 
@@ -38,11 +40,13 @@ def main() -> None:
     print(f"build_string_with_join:  {join_instructions} инструкций")
 
     assert plus_instructions > 0 and join_instructions > 0
+    checks_passed += 1
 
     # Не обязательно join всегда компактнее по числу инструкций тела функции —
     # цель упражнения — научиться СЧИТАТЬ инструкции, а не угадать результат.
     print("\nПолный листинг build_string_with_plus:")
     dis.dis(build_string_with_plus)
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -22,14 +22,19 @@ def sort_by_department_then_name(items):
 
 
 if __name__ == "__main__":
+    checks_passed = 0
+    total_checks = 2
+
     by_salary = sort_by_salary_desc(records)
     assert [r["name"] for r in by_salary] == ["Иван", "Пётр", "Анна", "Мария"], (
         f"FAIL: {[r['name'] for r in by_salary]}"
     )
+    checks_passed += 1
 
     by_dept = sort_by_department_then_name(records)
     assert [r["name"] for r in by_dept] == ["Анна", "Мария", "Иван", "Пётр"], (
         f"FAIL: {[r['name'] for r in by_dept]}"
     )
+    checks_passed += 1
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")

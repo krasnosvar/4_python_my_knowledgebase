@@ -38,6 +38,8 @@ def configure_logger(log_file: Path, in_memory_records: list[str]) -> logging.Lo
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 3
     in_memory_records: list[str] = []
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -52,14 +54,18 @@ def main() -> None:
         file_content = log_file.read_text(encoding="utf-8")
 
     assert "[DEBUG] детали отладки" in file_content
+    checks_passed += 1
     assert "[INFO] обычная информация" in file_content
+    checks_passed += 1
     assert in_memory_records == [
         "[WARNING] что-то подозрительное",
         "[ERROR] критическая ошибка",
     ], in_memory_records
+    checks_passed += 1
 
     print("Файл содержит все уровни, in-memory — только WARNING+:")
     print(in_memory_records)
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

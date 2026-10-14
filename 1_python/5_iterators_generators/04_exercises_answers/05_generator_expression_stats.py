@@ -22,18 +22,26 @@ def mean(readings: list[float]) -> float:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 5
+
     assert abs(sum_positive(READINGS) - 231.9) < 1e-9
+    checks_passed += 1
 
     assert count_above(READINGS, 20) == 4
+    checks_passed += 1
 
     assert max_negative(READINGS) == -1.5
+    checks_passed += 1
 
     assert max_negative([1.0, 2.0]) is None
+    checks_passed += 1
 
     expected_mean = sum(READINGS) / len(READINGS)
     assert abs(mean(READINGS) - expected_mean) < 1e-9
+    checks_passed += 1
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

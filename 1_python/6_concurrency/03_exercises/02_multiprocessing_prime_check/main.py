@@ -29,6 +29,9 @@ def count_primes_parallel(numbers: list[int]) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
+
     numbers = [100_003 + i for i in range(200)]
 
     start = time.perf_counter()
@@ -37,8 +40,10 @@ def main() -> None:
 
     expected = sum(1 for n in numbers if is_prime(n))
     assert count == expected, f"ожидали {expected} простых, получили {count}"
+    checks_passed += 1
 
     print(f"Найдено простых: {count} из {len(numbers)}, время: {elapsed:.2f}s")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -33,12 +33,16 @@ def find_leak_line() -> str:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     leak_line = find_leak_line()
     print(f"Строка с наибольшим приростом памяти:\n{leak_line}")
 
     assert "leaky_operation" in leak_line or "main.py" in leak_line
+    checks_passed += 1
 
     print(f"\nРазмер утечки: {len(_leaky_cache)} элементов в _leaky_cache")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

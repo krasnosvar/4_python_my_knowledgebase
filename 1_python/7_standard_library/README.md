@@ -15,6 +15,18 @@ JSON/CSV, пройтись по файлам в папке, писать лог�
 будете знать, какой готовый инструмент взять для типовой задачи, и
 избегать его классических ловушек.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — таблицы «задача → функция» по `collections`, `functools`/`itertools`, `datetime`, `re`, `json`/`csv`, `pathlib`, `logging`.
+
+## Что нужно знать заранее
+
+- [1_python_fundamentals](../1_python_fundamentals/) — функции, исключения,
+  `import`.
+- [2_basics](../2_basics/) — `list`/`dict`/`tuple`/`set`, comprehensions.
+- [3_functions_and_decorators](../3_functions_and_decorators/) — функции как
+  объекты (для `lru_cache`, `partial`) и контекст-менеджеры (`with`).
+- [5_iterators_generators](../5_iterators_generators/) — ленивые итераторы:
+  на них построен `itertools`.
+
 ## Структура раздела
 
 - **[01_theory/](./01_theory/)** — теория:
@@ -50,3 +62,12 @@ regex, сериализация, файлы, логирование).
 python 02_examples/01_collections_toolkit/main.py
 python 03_exercises/01_word_frequency_counter/main.py
 ```
+
+## Когда двигаться дальше
+
+Когда можете без подсказок посчитать частоты через `Counter`, создать
+дату с часовым поясом и сравнить её с другой, разобрать строку лога
+регулярным выражением, прочитать/записать JSON и CSV, обойти папку через
+`pathlib` и настроить логгер с уровнем и форматом — переходите к
+[8_testing](../8_testing/): там многие из этих модулей (`pathlib`,
+временные файлы, `datetime`) понадобятся в тестах.

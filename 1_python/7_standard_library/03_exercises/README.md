@@ -2,7 +2,7 @@
 
 Запуск задания: `python 03_exercises/01_word_frequency_counter/main.py`
 
-Ответы: `python 04_exercises_answers/01_word_frequency_counter_answers/main.py`
+Ответы: `python 04_exercises_answers/01_word_frequency_counter/main.py`
 
 1. `01_word_frequency_counter` — `collections.Counter`.
 2. `02_memoized_fibonacci` — `functools.lru_cache`.

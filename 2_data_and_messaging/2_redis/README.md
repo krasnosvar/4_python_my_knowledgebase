@@ -1,4 +1,4 @@
-# Redis как кеш
+# Тема 2. Redis как кеш
 
 ## Зачем эта тема
 
@@ -14,10 +14,16 @@
 выбрать структуру данных Redis под задачу, реализовать cache-aside с TTL,
 продумать инвалидацию и сделать rate limiter.
 
-Нужно заранее: тема
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — команды структур данных, eviction-политики, паттерны кеширования, rate limiting в таблицах.
+
+## Что нужно знать заранее
+
+Тема
 [1_sql_relational_databases](../1_sql_relational_databases/README.md) (Redis
-почти всегда стоит рядом с реляционной базой) и Docker на уровне
-[0_tooling_and_workflow](../../0_tooling_and_workflow/).
+почти всегда стоит рядом с реляционной базой), Docker на уровне
+[0_tooling_and_workflow](../../0_tooling_and_workflow/) и виртуальное
+окружение из
+[other/01_environments_and_packaging](../../other/01_environments_and_packaging/).
 
 ## Структура темы
 
@@ -59,5 +65,12 @@
    `04_exercises_answers/`.
 5. Остановить стенд: `docker compose down`, с удалением данных —
    `docker compose down -v`.
+
+## Когда двигаться дальше
+
+Когда ты можешь реализовать cache-aside с осмысленным TTL, объяснить, как
+кеш устаревает и как его инвалидировать, и сделать rate limiter на Redis —
+переходи к [3_message_brokers](../3_message_brokers/README.md): там сервисы
+начинают обмениваться событиями асинхронно.
 
 [К оглавлению раздела](../README.md).

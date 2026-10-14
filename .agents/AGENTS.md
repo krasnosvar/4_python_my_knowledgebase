@@ -14,9 +14,12 @@ written in Russian, matching the rest of the repo.
 ## Directory & Structural Conventions
 
 - `1_python/` holds the core language path as `<N>_<name>/` with a sequential
-  integer prefix, currently: `1_python_fundamentals` (absolute zero — 7
-  topics: variables/types, operators, input/output, control flow, functions
-  + type hints, exceptions, modules/imports), `2_basics` (folder name kept
+  integer prefix, currently: `1_python_fundamentals` (absolute zero —
+  `00_setup` (install Python 3.12+, terminal, `cd`, `python3`/`python`/`py`,
+  running a script, REPL, editor; the one place that explains which
+  interpreter command to type — don't mass-rewrite `python` in other READMEs)
+  + 7 topics: variables/types, operators, input/output, control flow,
+  functions + type hints, exceptions, modules/imports), `2_basics` (folder name kept
   for link stability, but its README title is "Типы и коллекции изнутри" —
   don't call it "основы", that collided with fundamentals and readers
   couldn't tell why it existed), `3_functions_and_decorators`, `4_oop`,
@@ -41,7 +44,46 @@ written in Russian, matching the rest of the repo.
   to be done after reading *all* theory files in the section, so they can be
   ordered by difficulty instead.
 
+## Cheat-sheets (`CHEATSHEET.md`)
+
+The repo doubles as a quick reference for an experienced engineer, so every
+topic with a `01_theory/` has a `CHEATSHEET.md` next to its `README.md`.
+Exceptions — one combined sheet with a `##` section per subtopic:
+`1_python/1_python_fundamentals/CHEATSHEET.md` and
+`5_engineering_communication/CHEATSHEET.md` (subtopic READMEs link to
+`../CHEATSHEET.md#<anchor>`).
+
+- **Format** (reference: `0_tooling_and_workflow/01_git_essentials/CHEATSHEET.md`):
+  `# <Тема> — шпаргалка`, then a line linking the theory; content grouped
+  by `##` sub-headings as tables «задача → синтаксис/команда», decision
+  tables «когда что», complexity tables, short code blocks, one-line
+  pitfalls marked ⚠️. No prose paragraphs; 1–3 screens.
+- **Derived from theory, kept in sync**: every row must match what that
+  topic's `01_theory/` teaches and link to the specific theory file. When
+  you change theory (renamed API, new rule, renamed/renumbered file),
+  update the cheat-sheet in the same edit. Version-dependent behaviour
+  carries the version (`3.11+`, `3.12+`).
+- Cheat-sheets are reference material, so the Clarity Principle does not
+  apply to them (they may use constructs from later sections).
+- Each topic `README.md` has one line near the top, right before
+  «Что нужно знать заранее»: «**Уже знакомы с темой?** →» followed by a
+  relative link to `./CHEATSHEET.md` (or `../CHEATSHEET.md#<anchor>` for
+  subtopics of a combined sheet) and a short description.
+- Root `README.md` section «Шпаргалки» indexes all cheat-sheets grouped by
+  section — add/remove/rename entries there together with the file.
+- Runnable snippets in cheat-sheets must actually be run (python3 with a
+  timeout); snippets needing servers (Redis, Kafka, Docker) are marked as
+  such in the sheet.
+
 ## Section framing — every README answers "зачем"
+
+Title labels: top-level dirs are `# Раздел N. <Русское название> (English)`
+(`0_tooling_and_workflow` … `5_engineering_communication`; `other` is
+"Дополнительно"). Their subdirs are `# Тема <prefix as on disk>. ...`
+(`Тема 01.` in `0_tooling`, `4_system_design`, `5_engineering_communication`,
+`other`; `Тема 3.` in `1_python`, `2_data_and_messaging`, `3_web_frameworks`).
+`1_python_fundamentals` is itself `Тема 1.` and its subtopics are
+`Тема 1.0` … `Тема 1.7`. Russian name first, English in parentheses.
 
 Every section/topic README (in `1_python/` and in the top-level sections)
 opens with a title (`Тема N. ...` in `1_python/`), a **"Зачем этот раздел"**
@@ -149,7 +191,18 @@ Real bugs found and fixed under this rule:
   directory explaining how to run it.
 - `04_exercises_answers/*.py` — same filenames as `03_exercises/`, same
   `_self_check()` pattern, with the reference implementation instead of
-  `NotImplementedError`.
+  `NotImplementedError`. For per-exercise directories the answer directory
+  has the *same name* as the exercise directory (no `_answers` suffix).
+- The `проверок пройдено` summary line is mandatory everywhere, but only
+  fundamentals/`2_basics` wrap checks in `_self_check()`; sections 3–10
+  count `checks_passed`/`total_checks` inside `main()`/`if __name__` —
+  don't "fix" that into `_self_check()` without being asked.
+- Exercise file/dir names everywhere are `NN_name` (two-digit prefix) — no
+  `task_N_`, `exN_`, single-digit `1_` variants.
+- Fundamentals exercises 01–04 use `def`/`return`/`raise`/`if __name__`
+  before topics 05–07 teach them; this is deliberate and covered by a
+  "Как устроен файл упражнения" block (edit only the line under `TODO`,
+  the rest is scaffolding explained in 05–07). Keep that block when editing.
 - After writing or editing any of these, actually run them — `python
   path/to/script.py` for examples and answers (must exit cleanly with correct
   output / all `PASS`), and for exercise files confirm they raise
@@ -162,6 +215,21 @@ Real bugs found and fixed under this rule:
   `TypeError`/`AttributeError` because the TODO is "add a method/`__init__`"
   (nothing to raise from yet); `8_testing/03_exercises/*/` source modules run
   clean because the task is to write the tests for them.
+- **Git block (`0_tooling_and_workflow/01_git_essentials/`) uses no
+  scripts.** It was rewritten away from `setup.sh`/`check.sh`/`solve.sh`
+  wrappers, because the owner found they confused beginners: the learner
+  should type the git commands, not run a harness. Format:
+  `02_examples/NN_*.md` are walkthroughs (command → real output →
+  explanation). `03_exercises/NN_*.md` each have «Подготовка» (commands the
+  learner types, working in `~/git-practice/exNN` outside the repo),
+  «Задание» (no commands given) and «Проверь себя» (plain git commands plus
+  expected output). `04_exercises_answers/NN_*.md` use the same filenames.
+  `CHEATSHEET.md` holds the «задача → команда» tables. Don't reintroduce
+  `.sh` there. Output shown in these files must come from actually running
+  the commands (hashes may differ). Use only `printf`/`echo`/heredocs, no
+  `sed -i`, so the commands also work on macOS.
+  The Docker block keeps `check.sh` on purpose, because it actually builds
+  the image and calls `curl`.
 
 ## Renumbering history (watch for stale refs)
 
@@ -200,6 +268,15 @@ first); the three monolithic `01_theory/README.md` files in
 `2_data_and_messaging` split into numbered lessons (each `01_theory/README.md`
 kept as a short index so inbound links survive); docker exercise
 `03_compose_with_db` → `03_compose_with_cache` (it uses Redis, not a DB).
+
+Third pass (naming unification, all refs updated):
+`04_exercises_answers/NN_name_answers/` → `NN_name/` in `6_concurrency`,
+`7_standard_library`, `8_testing`, `9_algorithms_dsa`, `10_under_the_hood`;
+exercise names in `2_data_and_messaging` (SQL `task_1a…task_4_*` →
+`01_…06_*`, brokers `exN_*` → `0N_*`)
+and `3_web_frameworks` (FastAPI `1_*`/`2_*`, Django `task_0N_*`) → `NN_name`;
+new `1_python_fundamentals/00_setup/`. Grep for `_answers/`, `task_`, `ex1_`
+as plain text after touching these areas.
 
 ## Cross-Reference Discipline
 
@@ -251,6 +328,11 @@ directory with `os.path.normpath(os.path.join(dirname, link))`, and assert
    every `.md`.
 8. **Every section/topic has a README with "Зачем этот раздел"** (see
    Section framing).
+9. **Cheat-sheets** — every topic with `01_theory/` has a `CHEATSHEET.md`
+   (or a section in a combined one), linked from its README and from the
+   root «Шпаргалки» index; anchors in `CHEATSHEET.md#...` links resolve;
+   snippets you added/changed were run; rows still match the theory you
+   just edited (see Cheat-sheets above).
 5. **Clarity Principle** — for any new or reordered theory file, confirm
    every construct used in its examples/exercises was already taught by an
    earlier-numbered file in the same `01_theory/`, or by an earlier

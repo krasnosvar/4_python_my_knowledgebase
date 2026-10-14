@@ -34,13 +34,19 @@ async def run_cpu_task_without_blocking(n: int) -> tuple[int, int]:
 
 
 async def main() -> None:
+    checks_passed = 0
+    total_checks = 2
+
     result, ticks = await run_cpu_task_without_blocking(3_000_000)
 
     expected = sum(i * i for i in range(3_000_000))
     assert result == expected
+    checks_passed += 1
     assert ticks == 10, "event loop должен был успеть сделать все тики, пока считался CPU-таск"
+    checks_passed += 1
 
     print(f"Результат: {result}, тиков event loop: {ticks}")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

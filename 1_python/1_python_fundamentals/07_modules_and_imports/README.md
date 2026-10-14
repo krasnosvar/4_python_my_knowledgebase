@@ -1,9 +1,26 @@
-# Тема 07. Модули и import
+# Тема 1.7. Модули и import
 
 Как подключить готовый код из другого файла или стандартной библиотеки:
 `import x`, `from x import y`, `import x as y`, модули `math` и `random`,
 смысл `if __name__ == "__main__":`, что такое пакет и откуда берутся
 сторонние библиотеки. Последняя тема абсолютных основ.
+
+## Зачем этот раздел
+
+Никто не пишет всё с нуля: квадратный корень, случайные числа, работа с
+датами уже есть в стандартной библиотеке, а свой код удобно разложить по
+нескольким файлам. Эта тема учит подключать готовый код через `import` и
+объясняет строку `if __name__ == "__main__":`, которая стоит в конце
+каждого упражнения. После неё вы сможете использовать модули `math` и
+`random` и понимать устройство любого скрипта в этой базе.
+
+**Уже знакомы с темой?** → [CHEATSHEET.md](../CHEATSHEET.md#17-модули-и-import) — раздел «1.7 Модули и import» общей шпаргалки основ.
+
+## Что нужно знать заранее
+
+Темы [1.5](../05_functions_basics/) (функции) и
+[1.6](../06_exceptions/) (исключения и traceback — пригодится, чтобы
+прочитать `ModuleNotFoundError`/`NameError`).
 
 ## Структура раздела
 
@@ -14,22 +31,22 @@
 - **[02_examples/](./02_examples/)** — практические примеры:
   - [01_dice_and_geometry.py](./02_examples/01_dice_and_geometry.py) — все
     три формы импорта и функция `main()` под `if __name__ == "__main__":`.
-- **[03_exercises/](./03_exercises/)** — задачи с самопроверкой `PASS`/`FAIL`:
+- **[03_exercises/](./03_exercises/)** — задачи с самопроверкой (`PASS` по каждой проверке):
   - `01_circle_area` — `import math`, константа `math.pi`.
   - `02_hypotenuse` — `from math import sqrt`.
 - **[04_exercises_answers/](./04_exercises_answers/)** — эталонные решения.
 
-## Как проходить тему
+## Как проходить
 
 1. Прочитайте теорию:
    [01_modules_and_imports.md](./01_theory/01_modules_and_imports.md).
 2. Запустите пример:
    ```bash
-   python 02_examples/01_dice_and_geometry.py
+   python3 02_examples/01_dice_and_geometry.py
    ```
 3. Выполните задачи в `03_exercises/`, запуская файл для самопроверки:
    ```bash
-   python 03_exercises/01_circle_area.py
+   python3 03_exercises/01_circle_area.py
    ```
 4. Сверьтесь с эталонными ответами в `04_exercises_answers/`.
 

@@ -27,12 +27,16 @@ def parse_and_analyze(raw_dates: list[str]) -> float:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     diff_seconds = parse_and_analyze(RAW_DATES)
 
     # самая ранняя: 08:30 UTC, самая поздняя: 09:15 UTC -> разница 45 минут
     assert diff_seconds == 45 * 60, f"ожидали 2700.0, получили {diff_seconds}"
+    checks_passed += 1
 
     print(f"Разница между самой ранней и самой поздней датой: {diff_seconds}s")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

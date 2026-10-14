@@ -5,13 +5,15 @@
 файл напрямую:
 
 ```bash
-python 03_exercises/01_circle_area.py
+python3 03_exercises/01_circle_area.py
 ```
 
 Пока `TODO` не реализован, скрипт упадёт с `NotImplementedError`. Если
 забыть добавить `import`, будет `NameError: name 'math' is not defined` —
-прочитай traceback снизу вверх. После правильной реализации самопроверка
-печатает `PASS` по каждой проверке.
+прочитай traceback снизу вверх. Неверный ответ остановит самопроверку с
+`AssertionError` и пояснением в последней строке traceback. После
+правильной реализации самопроверка печатает `PASS` по каждой проверке и
+итог вида `3/3 проверок пройдено`.
 
 Эталонные решения — в [04_exercises_answers/](../04_exercises_answers/), с
 теми же именами файлов.

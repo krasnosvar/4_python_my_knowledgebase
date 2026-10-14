@@ -35,6 +35,8 @@ def main() -> None:
     #       2   3
     #      / \   \
     #     4   5   6
+    checks_passed = 0
+    total_checks = 3
     root = TreeNode(1,
         left=TreeNode(2, left=TreeNode(4), right=TreeNode(5)),
         right=TreeNode(3, right=TreeNode(6)),
@@ -42,11 +44,14 @@ def main() -> None:
 
     result = level_order(root)
     assert result == [[1], [2, 3], [4, 5, 6]], f"получили {result}"
+    checks_passed += 1
 
     assert level_order(None) == []
+    checks_passed += 1
     assert level_order(TreeNode(1)) == [[1]]
+    checks_passed += 1
 
-    print("Все тесты прошли:", result)
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

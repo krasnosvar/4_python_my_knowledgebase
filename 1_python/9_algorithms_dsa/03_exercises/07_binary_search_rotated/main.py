@@ -24,17 +24,25 @@ def search_rotated(nums: list[int], target: int) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 6
     nums = [4, 5, 6, 7, 0, 1, 2]
 
     assert search_rotated(nums, 0) == 4
+    checks_passed += 1
     assert search_rotated(nums, 4) == 0
+    checks_passed += 1
     assert search_rotated(nums, 2) == 6
+    checks_passed += 1
     assert search_rotated(nums, 3) == -1
+    checks_passed += 1
 
     assert search_rotated([1], 1) == 0
+    checks_passed += 1
     assert search_rotated([1], 0) == -1
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

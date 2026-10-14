@@ -18,6 +18,8 @@ def is_balanced(s: str) -> bool:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     cases = [
         ("()", True),
         ("()[]{}", True),
@@ -30,8 +32,9 @@ def main() -> None:
     for s, expected in cases:
         result = is_balanced(s)
         assert result == expected, f"is_balanced({s!r}) = {result}, ожидали {expected}"
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

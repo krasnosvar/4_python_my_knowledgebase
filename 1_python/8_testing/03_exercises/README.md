@@ -6,7 +6,7 @@
 
 Запуск задания: `pytest 03_exercises/01_write_unit_tests_for_calculator`
 
-Ответы: `pytest 04_exercises_answers/01_write_unit_tests_for_calculator_answers`
+Ответы: `pytest 04_exercises_answers/01_write_unit_tests_for_calculator`
 
 1. `01_write_unit_tests_for_calculator` — базовые unit-тесты и pytest.raises.
 2. `02_fixtures_for_temp_files` — fixture с yield-teardown для временных файлов.

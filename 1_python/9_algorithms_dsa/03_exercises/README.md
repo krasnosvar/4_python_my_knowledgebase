@@ -7,7 +7,7 @@
 
 Запуск задания: `python 03_exercises/01_two_sum/main.py`
 
-Ответы: `python 04_exercises_answers/01_two_sum_answers/main.py`
+Ответы: `python 04_exercises_answers/01_two_sum/main.py`
 
 ## Лёгкий уровень
 

@@ -30,22 +30,30 @@ class SimpleRange:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 5
+
     forward = list(SimpleRange(0, 5))
     assert forward == [0, 1, 2, 3, 4], f"forward: {forward}"
+    checks_passed += 1
 
     stepped = list(SimpleRange(0, 10, 2))
     assert stepped == [0, 2, 4, 6, 8], f"stepped: {stepped}"
+    checks_passed += 1
 
     backward = list(SimpleRange(5, 0, -1))
     assert backward == [5, 4, 3, 2, 1], f"backward: {backward}"
+    checks_passed += 1
 
     # каждый iter() на новом объекте должен работать независимо
     r = SimpleRange(0, 3)
     it1 = iter(r)
     assert next(it1) == 0
+    checks_passed += 1
     assert next(it1) == 1
+    checks_passed += 1
 
-    print("PASS")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

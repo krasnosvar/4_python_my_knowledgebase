@@ -34,11 +34,15 @@ def csv_json_roundtrip(users: list[dict], tmp_dir: Path) -> list[dict]:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     with tempfile.TemporaryDirectory() as tmp:
         result = csv_json_roundtrip(USERS, Path(tmp))
 
     assert result == USERS, f"данные должны совпасть после round-trip, получили {result}"
+    checks_passed += 1
     print("Round-trip успешен:", result)
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

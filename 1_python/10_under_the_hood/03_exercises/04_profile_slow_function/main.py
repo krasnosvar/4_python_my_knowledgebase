@@ -42,9 +42,13 @@ def find_slowest_function() -> str:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 1
     slowest = find_slowest_function()
     assert slowest == "slow_part", f"ожидали 'slow_part', получили {slowest!r}"
+    checks_passed += 1
     print(f"Самая медленная функция по tottime: {slowest}")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

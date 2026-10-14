@@ -23,13 +23,20 @@ def longest_common_subsequence(a: str, b: str) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 5
     assert longest_common_subsequence("abcde", "ace") == 3
+    checks_passed += 1
     assert longest_common_subsequence("abc", "abc") == 3
+    checks_passed += 1
     assert longest_common_subsequence("abc", "def") == 0
+    checks_passed += 1
     assert longest_common_subsequence("", "abc") == 0
+    checks_passed += 1
     assert longest_common_subsequence("bsbininm", "jmjkbkjkv") == 1
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -21,12 +21,18 @@ def coin_change(coins: list[int], amount: int) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 4
     assert coin_change([1, 5, 10, 25], 63) == 6   # 25+25+10+1+1+1
+    checks_passed += 1
     assert coin_change([2], 3) == -1               # нечётную сумму монетами по 2 не набрать
+    checks_passed += 1
     assert coin_change([1], 0) == 0
+    checks_passed += 1
     assert coin_change([1, 2, 5], 11) == 3         # 5+5+1
+    checks_passed += 1
 
-    print("Все тесты прошли")
+    print(f"{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

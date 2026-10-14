@@ -10,6 +10,16 @@ HTTP-запрос должен отвечать за доли секунды, а
 повторы при ошибках и периодические задачи — и, что не менее важно,
 понять, когда Celery не нужен и хватит простого фонового `asyncio`.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — команды, `delay`/`apply_async`, retry, beat, Celery vs `BackgroundTasks`.
+
+## Что нужно знать заранее
+
+- Docker и Docker Compose из
+  [0_tooling_and_workflow/02_docker_basics](../../0_tooling_and_workflow/02_docker_basics/).
+- Представление о брокерах сообщений из
+  [2_data_and_messaging/3_message_brokers](../../2_data_and_messaging/3_message_brokers/)
+  и о Redis из [2_data_and_messaging/2_redis](../../2_data_and_messaging/2_redis/).
+
 ## Структура темы
 
 - **[01_theory/](./01_theory/)** — теория, читать по порядку:
@@ -36,7 +46,9 @@ HTTP-запрос должен отвечать за доли секунды, а
 3. Выполнить упражнения из `03_exercises/` (условия — в их README),
    сверить с `04_exercises_answers/`.
 
-Нужны: Docker и Docker Compose из
-[0_tooling_and_workflow/02_docker_basics](../../0_tooling_and_workflow/02_docker_basics/)
-и представление о брокерах сообщений из
-[2_data_and_messaging/3_message_brokers](../../2_data_and_messaging/3_message_brokers/).
+## Когда двигаться дальше
+
+Когда ты можешь поставить задачу в очередь, настроить для неё retry с
+экспоненциальным backoff, запустить периодическую задачу через `celery beat`
+и объяснить, когда хватит фонового `asyncio` — переходи к
+[4_stack_comparison](../4_stack_comparison/).

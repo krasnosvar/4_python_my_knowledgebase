@@ -32,6 +32,9 @@ def count_words_threaded(doc_ids: list[int]) -> int:
 
 
 def main() -> None:
+    checks_passed = 0
+    total_checks = 2
+
     doc_ids = list(range(10))
 
     start = time.perf_counter()
@@ -40,9 +43,12 @@ def main() -> None:
 
     expected = len("slovo slovo slovo document 0".split()) * len(doc_ids)
     assert total == expected, f"ожидали {expected} слов, получили {total}"
+    checks_passed += 1
     assert elapsed < 0.5, "потоки должны обработать документы конкурентно (< 0.5s)"
+    checks_passed += 1
 
     print(f"Суммарно слов: {total}, время: {elapsed:.2f}s")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

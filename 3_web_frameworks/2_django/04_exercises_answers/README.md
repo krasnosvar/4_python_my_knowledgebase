@@ -3,9 +3,9 @@
 Готовые решения для [../03_exercises](../03_exercises/). Каждый `command.py`
 здесь — уже исправленная версия, без `TODO`.
 
-- [task_01_select_related](./task_01_select_related/) — исправлено через
+- [01_select_related](./01_select_related/) — исправлено через
   `select_related("author")`.
-- [task_02_prefetch_related](./task_02_prefetch_related/) — исправлено
+- [02_prefetch_related](./02_prefetch_related/) — исправлено
   через `prefetch_related("tags")`.
 
 Проверить решение можно, скопировав `command.py` в

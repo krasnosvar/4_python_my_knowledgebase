@@ -26,16 +26,22 @@ def concat_creates_new_string(s: str, suffix: str) -> bool:
 
 
 def _self_check() -> None:
+    checks_passed = 0
+    total_checks = 3
+
     assert try_mutate_tuple((1, 2, 3)) is True, "Попытка изменить элемент кортежа должна вызывать TypeError"
+    checks_passed += 1
     print("PASS: кортеж действительно неизменяем (TypeError при попытке мутации)")
 
     assert append_returns_same_object([1, 2], 3) is True, "append должен изменять список на месте, id не должен меняться"
+    checks_passed += 1
     print("PASS: list.append не создаёт новый объект (мутация на месте)")
 
     assert concat_creates_new_string("hello", " world") is True, "Конкатенация строк должна создавать новый объект"
+    checks_passed += 1
     print("PASS: конкатенация строк создаёт новый объект (строки неизменяемы)")
 
-    print("\nВсе проверки пройдены")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

@@ -32,6 +32,9 @@ async def call_api(limiter: RateLimiter, n: int, timestamps: list[float]) -> Non
 
 
 async def main() -> None:
+    checks_passed = 0
+    total_checks = 2
+
     limiter = RateLimiter(rate=4)
     timestamps: list[float] = []
 
@@ -41,9 +44,12 @@ async def main() -> None:
 
     # 12 вызовов при лимите 4/сек должны занять не меньше ~2.75s (11 интервалов по 0.25s)
     assert elapsed >= 2.5, f"rate limiter не сработал, elapsed={elapsed:.2f}"
+    checks_passed += 1
     assert len(timestamps) == 12
+    checks_passed += 1
 
     print(f"12 вызовов при лимите 4/сек заняли {elapsed:.2f}s")
+    print(f"\n{checks_passed}/{total_checks} проверок пройдено")
 
 
 if __name__ == "__main__":

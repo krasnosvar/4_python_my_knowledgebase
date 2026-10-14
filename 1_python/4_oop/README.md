@@ -19,6 +19,17 @@ MRO, миксинов, dataclasses, инкапсуляции через `@proper
 исключения (`raise ValueError(...)`) — они разобраны в
 [1_python_fundamentals/06_exceptions](../1_python_fundamentals/06_exceptions/README.md).
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — магические методы, `super()`/MRO, dataclass, `@property`, ABC vs Protocol, SOLID, ловушки.
+
+## Что нужно знать заранее
+
+- [1_python_fundamentals](../1_python_fundamentals/README.md), включая
+  исключения ([06_exceptions](../1_python_fundamentals/06_exceptions/README.md)).
+- [2_basics](../2_basics/README.md) — коллекции, изменяемость, хешируемость
+  (важно для `__eq__`/`__hash__`).
+- [3_functions_and_decorators](../3_functions_and_decorators/README.md) —
+  `@property`, `@dataclass` и `@abstractmethod` являются декораторами.
+
 ## Структура раздела
 
 * **[01_theory/](./01_theory/)** — теория (разбита по подтемам, читать по порядку):
@@ -57,3 +68,12 @@ MRO, миксинов, dataclasses, инкапсуляции через `@proper
    python 03_exercises/06_property_validation.py
    ```
 4. Сверьтесь с эталонными ответами в `04_exercises_answers/`.
+
+## Когда двигаться дальше
+
+Когда можете объяснить, что делает `self` и `super()`, предсказать порядок
+MRO для ромбовидного наследования и выбрать между обычным классом,
+`@dataclass` и `Protocol` под задачу, — переходите к
+[5_iterators_generators](../5_iterators_generators/README.md). Заодно
+вернитесь к упражнению `06_context_manager_class` из
+[раздела 3](../3_functions_and_decorators/README.md).

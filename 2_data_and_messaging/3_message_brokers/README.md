@@ -1,4 +1,4 @@
-# Брокеры сообщений: Kafka и RabbitMQ
+# Тема 3. Брокеры сообщений: Kafka и RabbitMQ
 
 ## Зачем эта тема
 
@@ -16,10 +16,16 @@ HTTP-вызов: сервис A вызывает сервис B и ждёт от
 нужен, правильно подтверждать обработку и построить retry с Dead Letter
 Queue.
 
-Нужно заранее: `asyncio` из
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — Kafka и RabbitMQ, гарантии доставки, DLQ/retry и «что выбрать» в таблицах.
+
+## Что нужно знать заранее
+
+`asyncio` из
 [1_python/6_concurrency](../../1_python/6_concurrency/) (Kafka-примеры
-асинхронные) и Docker на уровне
-[0_tooling_and_workflow](../../0_tooling_and_workflow/).
+асинхронные), Docker на уровне
+[0_tooling_and_workflow](../../0_tooling_and_workflow/) и виртуальное
+окружение из
+[other/01_environments_and_packaging](../../other/01_environments_and_packaging/).
 
 ## Структура темы
 
@@ -63,5 +69,13 @@ Queue.
    `04_exercises_answers/`.
 5. Остановить стенд: `docker compose down`, с удалением топиков и очередей —
    `docker compose down -v`.
+
+## Когда двигаться дальше
+
+Когда ты можешь объяснить, как ключ сообщения связан с порядком в Kafka,
+когда коммитить offset, чем topic exchange отличается от direct и как
+устроен retry через DLQ — раздел пройден. Дальше —
+[3_web_frameworks](../../3_web_frameworks/): там фоновые задачи (Celery)
+используют брокер уже как часть веб-сервиса.
 
 [К оглавлению раздела](../README.md).

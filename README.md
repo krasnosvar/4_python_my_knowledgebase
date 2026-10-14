@@ -1,16 +1,36 @@
 # Python Backend Knowledge Base
 
+## Зачем этот раздел
+
 Учебная база по Python backend-разработке: язык, стандартная библиотека, конкурентность,
 базы данных, брокеры сообщений, веб-фреймворки, system design и профессиональные
 коммуникативные навыки инженера.
 
 Материалы собраны как практический roadmap: краткая теория, runnable-примеры,
-упражнения и решения для самопроверки.
+упражнения и решения для самопроверки. Пройдя его, вы сможете писать на Python
+backend-сервисы с базой данных, кэшем и очередями, тестировать их и рассуждать
+об их архитектуре.
+
+## Что нужно знать заранее
+
+Ничего: база начинается с нуля. Первый шаг — урок
+[00_setup](./1_python/1_python_fundamentals/00_setup/): установка Python 3.12+,
+терминал, запуск первого скрипта.
+
+> **`python3`, `python` или `py`?** В README и комментариях команды записаны как
+> `python3` или `python` — это одна и та же программа, интерпретатор Python 3.
+> На Linux и macOS обычно работает только `python3` (`python` может отсутствовать
+> или указывать на старый Python 2), на Windows — `python` или `py`. Используйте
+> ту команду, которая на вашей системе показывает версию 3.12+ в ответ на
+> `--version`; подробнее — в [00_setup](./1_python/1_python_fundamentals/00_setup/).
+> Внутри активированного виртуального окружения (`.venv`) работают и `python`,
+> и `python3`.
 
 ## Структура
 
 - [0_tooling_and_workflow](./0_tooling_and_workflow/) — Git и Docker: минимум, без
-  которого не обойтись в повседневной работе, ещё до погружения в язык.
+  которого не обойтись в повседневной работе. Git нужен с самого начала, Docker
+  можно отложить до `2_data_and_messaging`.
 - [1_python](./1_python/) — Python с нуля: переменные, типы, `if`/`for`/`while`,
   функции — и дальше до идиом языка, ООП, итераторов и генераторов,
   конкурентности (GIL, threading, multiprocessing, asyncio), стандартной
@@ -41,19 +61,75 @@
 Раздел [5_engineering_communication](./5_engineering_communication/) устроен иначе:
 вместо кода — `01_theory/` и `02_practice/` с чек-листами и сценариями для практики.
 
+## Шпаргалки
+
+Уже знакомы с темой и нужен быстрый справочник? У каждой темы есть
+`CHEATSHEET.md` — таблицы «задача → синтаксис/команда», «когда что
+использовать», типичные ошибки. Подробности — по ссылкам на теорию внутри.
+
+**0. Инструменты**
+- [Git](./0_tooling_and_workflow/01_git_essentials/CHEATSHEET.md)
+- [Docker и Compose](./0_tooling_and_workflow/02_docker_basics/CHEATSHEET.md)
+
+**1. Python**
+- [Основы языка (темы 1.0–1.7)](./1_python/1_python_fundamentals/CHEATSHEET.md)
+- [Типы и коллекции изнутри](./1_python/2_basics/CHEATSHEET.md)
+- [Функции и декораторы](./1_python/3_functions_and_decorators/CHEATSHEET.md)
+- [ООП](./1_python/4_oop/CHEATSHEET.md)
+- [Итераторы и генераторы](./1_python/5_iterators_generators/CHEATSHEET.md)
+- [Конкурентность](./1_python/6_concurrency/CHEATSHEET.md)
+- [Стандартная библиотека](./1_python/7_standard_library/CHEATSHEET.md)
+- [Тестирование](./1_python/8_testing/CHEATSHEET.md)
+- [Алгоритмы и структуры данных](./1_python/9_algorithms_dsa/CHEATSHEET.md)
+- [CPython изнутри](./1_python/10_under_the_hood/CHEATSHEET.md)
+
+**2. Данные и сообщения**
+- [SQL и реляционные БД](./2_data_and_messaging/1_sql_relational_databases/CHEATSHEET.md)
+- [Redis](./2_data_and_messaging/2_redis/CHEATSHEET.md)
+- [Брокеры сообщений (Kafka, RabbitMQ)](./2_data_and_messaging/3_message_brokers/CHEATSHEET.md)
+
+**3. Веб-фреймворки**
+- [FastAPI](./3_web_frameworks/1_fastapi/CHEATSHEET.md)
+- [Django](./3_web_frameworks/2_django/CHEATSHEET.md)
+- [Celery](./3_web_frameworks/3_celery/CHEATSHEET.md)
+- [Сравнение стеков: FastAPI vs Django, место Celery](./3_web_frameworks/4_stack_comparison/CHEATSHEET.md)
+
+**4. System design**
+- [Архитектурные стили](./4_system_design/01_architecture_styles/CHEATSHEET.md)
+- [Производительность и масштабирование](./4_system_design/02_performance_and_scaling/CHEATSHEET.md)
+- [Компоненты распределённых систем](./4_system_design/03_distributed_components/CHEATSHEET.md)
+- [Разбор кейсов](./4_system_design/04_case_studies/CHEATSHEET.md)
+
+**5. Инженерная коммуникация**
+- [Все темы 01–06 на одной странице](./5_engineering_communication/CHEATSHEET.md)
+
+**Дополнительно**
+- [Окружения и упаковка (venv, pip, Poetry)](./other/01_environments_and_packaging/CHEATSHEET.md)
+- [Типизация и статический анализ](./other/02_typing_and_static_analysis/CHEATSHEET.md)
+
 ## Как проходить
 
-1. Начать с [0_tooling_and_workflow](./0_tooling_and_workflow/): базовый Git и Docker.
-2. Пройти [1_python](./1_python/): основы языка, ООП, конкурентность, стандартная
-   библиотека, тестирование и алгоритмы.
-3. Перейти к [2_data_and_messaging](./2_data_and_messaging/) и
+1. Установить Python и освоиться в терминале:
+   [00_setup](./1_python/1_python_fundamentals/00_setup/).
+2. Пройти Git из [0_tooling_and_workflow](./0_tooling_and_workflow/) — он нужен
+   с самого начала, чтобы сохранять свои решения. Docker из того же раздела
+   можно отложить до шага 5.
+3. Пройти [1_python](./1_python/): основы языка, ООП, конкурентность, стандартная
+   библиотека, тестирование и алгоритмы. Docker здесь не нужен.
+4. До первого `pip install` (на практике он впервые понадобится в
+   `1_python/8_testing`) создать виртуальное окружение по
+   [other/01_environments_and_packaging](./other/01_environments_and_packaging/),
+   иначе библиотеки встанут в системный Python.
+5. Пройти Docker из [0_tooling_and_workflow](./0_tooling_and_workflow/), затем
+   перейти к [2_data_and_messaging](./2_data_and_messaging/) и
    [3_web_frameworks](./3_web_frameworks/), чтобы связать язык с реальными
-   backend-сервисами.
-4. Параллельно читать [4_system_design](./4_system_design/), чтобы видеть, как
+   backend-сервисами (PostgreSQL, Redis, брокеры поднимаются через
+   `docker compose up`).
+6. Параллельно читать [4_system_design](./4_system_design/), чтобы видеть, как
    отдельные решения складываются в архитектуру целиком.
-5. [5_engineering_communication](./5_engineering_communication/) — проходить в
+7. [5_engineering_communication](./5_engineering_communication/) — проходить в
    любой момент, эти навыки не привязаны к техническому прогрессу.
-6. Использовать [other](./other/) как справочник по окружению разработки.
+8. Использовать [other](./other/) как справочник по окружению разработки.
 
 ## Проверка примеров
 
@@ -61,11 +137,19 @@
 состояние задачи, а готовые решения лежат рядом в `04_exercises_answers/`.
 
 ```bash
-python 1_python/2_basics/03_exercises/some_exercise.py
+python3 1_python/1_python_fundamentals/01_variables_and_types/03_exercises/01_convert_and_sum.py
 ```
+
+Пока задача не решена, скрипт падает с `NotImplementedError` — это нормально.
 
 Часть тем (SQL, Redis, брокеры сообщений) поднимают локальное окружение через
 Docker Compose — команда для запуска указана в README соответствующей темы.
+
+## Когда двигаться дальше
+
+Внутри каждого раздела и темы в README есть свой блок «Когда двигаться
+дальше» с конкретным критерием готовности. На уровне всей базы порядок
+задан в «Как проходить» выше.
 
 ## Полезные ресурсы
 

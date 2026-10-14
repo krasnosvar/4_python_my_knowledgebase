@@ -11,6 +11,16 @@ HTTP API с валидацией входных данных, подключен
 схемы, и понимать, где в нём можно незаметно «положить» весь сервис
 одним неудачным `async def`.
 
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — роуты и параметры, `async def` vs `def`, Pydantic v2, `Depends`, Alembic.
+
+## Что нужно знать заранее
+
+- `async`/`await` из [1_python/6_concurrency](../../1_python/6_concurrency/).
+- Базовый SQL из
+  [2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).
+- Виртуальное окружение и `pip install -r requirements.txt` —
+  [other/01_environments_and_packaging](../../other/01_environments_and_packaging/).
+
 ## Структура темы
 
 - **[01_theory/](./01_theory/)** — теория, читать по порядку:
@@ -44,6 +54,9 @@ HTTP API с валидацией входных данных, подключен
 4. Выполнить упражнения из `03_exercises/`, сверить с
    `04_exercises_answers/`.
 
-Нужны: [1_python/6_concurrency](../../1_python/6_concurrency/)
-(`async`/`await`) и базовый SQL из
-[2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).
+## Когда двигаться дальше
+
+Когда ты можешь добавить в приложение новый эндпоинт с Pydantic-валидацией,
+объяснить, почему блокирующий вызов внутри `async def` тормозит весь сервис,
+и написать Alembic-миграцию под новое поле — переходи к
+[2_django](../2_django/).
