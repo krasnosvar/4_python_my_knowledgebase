@@ -87,8 +87,12 @@ class ImagePipeline:
         self._next_id += 1
 
         original_key = self.storage.put_if_absent(original_bytes)
-        record = ImageRecord(image_id=image_id, owner_id=owner_id, status="processing")
-        record.variants["original"] = ImageVariant("original", original_key, len(original_bytes))
+        record = ImageRecord(
+            image_id=image_id, owner_id=owner_id, status="processing"
+        )
+        record.variants["original"] = ImageVariant(
+            "original", original_key, len(original_bytes)
+        )
         self.images[image_id] = record
         return image_id
 
@@ -98,7 +102,8 @@ class ImagePipeline:
         отдельным процессом-потребителем события из брокера, а не синхронно
         из upload()."""
         record = self.images[image_id]
-        original_bytes = self.storage.get(record.variants["original"].storage_key)
+        orig_key = record.variants["original"].storage_key
+        original_bytes = self.storage.get(orig_key)
 
         for variant in ("thumbnail", "medium"):
             resized = fake_resize(original_bytes, variant)
@@ -118,19 +123,28 @@ def main() -> None:
 
     # Пользователь A загружает фото.
     image_a = pipeline.upload("user-A", original)
-    print(f"Загружено (user-A): {image_a}, статус={pipeline.images[image_a].status}")
+    status_a = pipeline.images[image_a].status
+    print(f"Загружено (user-A): {image_a}, статус={status_a}")
     assert pipeline.images[image_a].status == "processing"
 
     # Асинхронный воркер обрабатывает изображение (генерирует варианты).
     pipeline.process(image_a)
-    print(f"После обработки: статус={pipeline.images[image_a].status}, "
-          f"варианты={list(pipeline.images[image_a].variants.keys())}")
+    print(
+        f"После обработки: статус={pipeline.images[image_a].status}, "
+        f"варианты={list(pipeline.images[image_a].variants.keys())}"
+    )
     assert pipeline.images[image_a].status == "ready"
-    assert set(pipeline.images[image_a].variants) == {"original", "thumbnail", "medium"}
+    assert set(pipeline.images[image_a].variants) == {
+        "original",
+        "thumbnail",
+        "medium",
+    }
 
     objects_after_first_upload = storage.object_count()
-    puts_after_first_upload = storage.put_calls
-    print(f"\nОбъектов в blob storage после первой загрузки: {objects_after_first_upload}")
+    print(
+        f"\nОбъектов в blob storage после первой загрузки: "
+        f"{objects_after_first_upload}"
+    )
 
     # Пользователь B загружает БАЙТ-В-БАЙТ такой же файл (например, пересланный
     # скриншот) - дедупликация должна распознать совпадение по хэшу и не
@@ -139,8 +153,10 @@ def main() -> None:
     pipeline.process(image_b)
 
     objects_after_second_upload = storage.object_count()
-    print(f"Объектов в blob storage после повторной загрузки того же файла: "
-          f"{objects_after_second_upload}")
+    print(
+        f"Объектов в blob storage после повторной загрузки того же файла: "
+        f"{objects_after_second_upload}"
+    )
 
     assert objects_after_second_upload == objects_after_first_upload, (
         "дедупликация должна была предотвратить создание новых объектов "
@@ -150,8 +166,10 @@ def main() -> None:
     # Но метаданные - отдельная запись на каждого владельца, это ожидаемо:
     # два разных image_id могут ссылаться на один и тот же объект в storage.
     assert image_a != image_b
-    assert pipeline.images[image_a].variants["original"].storage_key == \
-        pipeline.images[image_b].variants["original"].storage_key
+    assert (
+        pipeline.images[image_a].variants["original"].storage_key
+        == pipeline.images[image_b].variants["original"].storage_key
+    )
 
     print(
         "\nВывод: несмотря на то что user-A и user-B загрузили идентичные "

@@ -12,7 +12,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
@@ -29,7 +29,8 @@ class ServiceRegistry:
         self._instances: dict[str, dict[str, Instance]] = {}
 
     def register(self, service: str, address: str, now: float) -> None:
-        self._instances.setdefault(service, {})[address] = Instance(address, now)
+        service_map = self._instances.setdefault(service, {})
+        service_map[address] = Instance(address, now)
 
     def heartbeat(self, service: str, address: str, now: float) -> None:
         instances = self._instances.get(service, {})
@@ -72,9 +73,11 @@ def main() -> None:
 
     healthy_t5 = registry.healthy_instances("orders-service", now=t)
     print(f"t={t:5.1f}: здоровые инстансы: {healthy_t5}")
-    assert len(healthy_t5) == 3, "пока не прошло 10 секунд с последнего heartbeat, инстанс всё ещё здоров"
+    assert len(healthy_t5) == 3, (
+        "пока не прошло 10 секунд с последнего heartbeat, инстанс здоров"
+    )
 
-    # t=16: с момента последнего heartbeat 10.0.0.3 прошло 16 секунд > timeout 10.
+    # t=16: с последнего heartbeat 10.0.0.3 прошло 16 секунд > timeout 10.
     # Он должен выпасть из списка здоровых, даже если формально не был
     # дерегистрирован явно - это и есть readiness/liveness через heartbeat.
     t = 16.0

@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from itertools import cycle
 
 
@@ -77,17 +77,33 @@ def main() -> None:
 
     print("\nRound Robin:")
     for s in rr_servers:
-        print(f"  {s.name}: requests={s.total_requests:2d}  busy_time={s.busy_time:5.1f}")
+        print(
+            f"  {s.name}: requests={s.total_requests:2d}  "
+            f"busy_time={s.busy_time:5.1f}"
+        )
 
     print("\nLeast Connections:")
     for s in lc_servers:
-        print(f"  {s.name}: requests={s.total_requests:2d}  busy_time={s.busy_time:5.1f}")
+        print(
+            f"  {s.name}: requests={s.total_requests:2d}  "
+            f"busy_time={s.busy_time:5.1f}"
+        )
 
-    rr_busy_spread = max(s.busy_time for s in rr_servers) - min(s.busy_time for s in rr_servers)
-    lc_busy_spread = max(s.busy_time for s in lc_servers) - min(s.busy_time for s in lc_servers)
+    rr_busy_spread = max(s.busy_time for s in rr_servers) - min(
+        s.busy_time for s in rr_servers
+    )
+    lc_busy_spread = max(s.busy_time for s in lc_servers) - min(
+        s.busy_time for s in lc_servers
+    )
 
-    print(f"\nРазброс busy_time (max-min) Round Robin:        {rr_busy_spread:.1f}")
-    print(f"Разброс busy_time (max-min) Least Connections:  {lc_busy_spread:.1f}")
+    print(
+        f"\nРазброс busy_time (max-min) Round Robin:        "
+        f"{rr_busy_spread:.1f}"
+    )
+    print(
+        f"Разброс busy_time (max-min) Least Connections:  "
+        f"{lc_busy_spread:.1f}"
+    )
 
     assert lc_busy_spread <= rr_busy_spread, (
         "Least Connections должен давать не худший (обычно лучший) разброс "

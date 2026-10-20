@@ -26,7 +26,9 @@ class Stage:
         return 1.0 / self.capacity_rps
 
 
-def simulate_pipeline(stages: list[Stage], arrival_rate_rps: float, n_requests: int) -> dict[str, float]:
+def simulate_pipeline(
+    stages: list[Stage], arrival_rate_rps: float, n_requests: int
+) -> dict[str, float]:
     """Прогоняет n_requests через конвейер стадий и возвращает среднюю
     длину очереди перед каждой стадией (в запросах) — грубая оценка на
     основе Little's Law (L = lambda * W), где W - среднее время ожидания
@@ -65,13 +67,21 @@ def main() -> None:
     print(f"Интенсивность поступления: {arrival_rate:.0f} req/s\n")
     for stage in stages:
         q = queues[stage.name]
-        q_str = "растёт неограниченно (перегружена)" if q == float("inf") else f"~{q:.2f} запросов в очереди"
-        print(f"  {stage.name:12s} capacity={stage.capacity_rps:7.0f} req/s  {q_str}")
+        if q == float("inf"):
+            q_str = "растёт неограниченно (перегружена)"
+        else:
+            q_str = f"~{q:.2f} запросов в очереди"
+        print(
+            f"  {stage.name:12s} capacity={stage.capacity_rps:7.0f} req/s"
+            f"  {q_str}"
+        )
 
     throughput = pipeline_throughput(stages)
     bottleneck = min(stages, key=lambda s: s.capacity_rps)
-    print(f"\nThroughput всего конвейера: {throughput:.0f} req/s "
-          f"(ограничен стадией '{bottleneck.name}')")
+    print(
+        f"\nThroughput всего конвейера: {throughput:.0f} req/s "
+        f"(ограничен стадией '{bottleneck.name}')"
+    )
 
     assert bottleneck.name == "db_query"
     assert throughput == 200.0
@@ -79,7 +89,9 @@ def main() -> None:
     # Поднимем интенсивность выше пропускной способности узкого места:
     # его очередь должна уйти в бесконечность, даже если остальные стадии
     # справляются легко.
-    overloaded_queues = simulate_pipeline(stages, arrival_rate_rps=250.0, n_requests=1)
+    overloaded_queues = simulate_pipeline(
+        stages, arrival_rate_rps=250.0, n_requests=1
+    )
     assert overloaded_queues["db_query"] == float("inf")
     assert overloaded_queues["app_handler"] != float("inf")
 

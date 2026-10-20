@@ -1,45 +1,111 @@
-# Тема 01. Архитектурные стили (Architecture Styles)
+# Тема 01. Архитектурные стили в Python (Architecture Styles)
+
+## О чём эта тема (краткий контекст)
+
+Архитектура приложения и системы отвечает на два главных вопроса: как провести
+границы между процессами и базами данных (монолит, модульный монолит или
+микросервисы) и как организовать слои кода внутри каждого отдельного сервиса
+(Layered, Hexagonal, Clean Architecture, DDD), а также по каким сетевым
+протоколам (REST, gRPC, GraphQL) сервисы общаются между собой. Правильный
+выбор архитектурного стиля позволяет маленькой команде быстро запускать
+продукт без лишней инфраструктурной цены, а большой организации — независимо
+релизить, тестировать и масштабировать десятки сервисов, не скатываясь в
+«распределённый монолит».
+
+> **Базовая теория и инфраструктурный фундамент (DevOps / SRE):**
+> Полный разбор концепции, базовые определения, схемы, алгоритмы и
+> платформенные компромиссы вынесены в канонический раздел:
+> - [Системная архитектура: монолит и микросервисы](../../../5_devops_sre_knowledgebase/14_system_design/01_architecture_and_api_styles/01_theory/01_system_architecture_monolith_microservices.md)
+> - [Архитектура внутри сервиса: Layered, Clean, Hexagonal и DDD](../../../5_devops_sre_knowledgebase/14_system_design/01_architecture_and_api_styles/01_theory/02_service_architecture_clean_ddd.md)
+> - [Стили API (REST, gRPC, GraphQL), API Gateway и Service Discovery](../../../5_devops_sre_knowledgebase/14_system_design/01_architecture_and_api_styles/01_theory/03_api_styles_gateway_and_discovery.md)
+>
+> **Фокус этого урока:** здесь мы не дублируем общую теорию, а разбираем
+> исключительно особенности реализации и эксплуатации в экосистеме
+> **Python** (рантайм CPython и GIL, память, WSGI/ASGI, стандартная
+> библиотека и популярные фреймворки).
 
 ## Зачем этот раздел
 
-Как выбрать способ разложить систему по границам процессов: монолит против микросервисов, почему «распределённый монолит» — худший из миров, по каким критериям выбирать стиль под конкретную команду и продукт, и как безопасно мигрировать от одного к другому. Теория подкреплена небольшими runnable-примерами на Python и упражнениями в формате сценариев системного дизайна.
+Здесь вы научитесь приземлять архитектурные паттерны на реальный Python-стек:
+строить модульный монолит с контролем импортов (`tach`, `import-linter`),
+понимать разницу между синхронным WSGI (Gunicorn) и асинхронным ASGI (Uvicorn
++ `httpx.AsyncClient`) при межсервисных вызовах, применять Чистую архитектуру
+(`@dataclass`, `typing.Protocol`, `Unit of Work` поверх `SQLAlchemy`) там, где
+Active Record Django перестаёт справляться, и выбирать между FastAPI +
+`orjson`, `grpc.aio` и `Strawberry` GraphQL.
 
-**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — таблицы «когда что», признаки распределённого монолита, стратегии миграции.
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — таблицы выбора
+архитектуры, WSGI vs ASGI, Clean Architecture / UoW и сравнение REST / gRPC /
+GraphQL в Python.
 
 ## Что нужно знать заранее
 
-- Python на уровне [1_python](../../1_python/) — чтобы читать примеры.
-- Общее представление о том, что такое HTTP-сервис и база данных (см. [3_web_frameworks](../../3_web_frameworks/) и [2_data_and_messaging](../../2_data_and_messaging/)); глубокое знание не требуется.
+- Python и ООП на уровне [1_python](../../1_python/) (особенно датаклассы,
+  протоколы и [SOLID в
+  Python](../../1_python/3_oop/01_theory/08_solid_in_python.md)).
+- Базовое представление об HTTP-сервисах, ORM и фоновых задачах (см.
+  [2_data_and_messaging](../../2_data_and_messaging/) и
+  [3_web_frameworks](../../3_web_frameworks/)).
 
 ## Структура раздела
 
-*   **[01_theory/](./01_theory/)** — теория, разбитая по подтемам:
-    *   [01_monolith_vs_microservices.md](./01_theory/01_monolith_vs_microservices.md) — монолит против микросервисов: плюсы/минусы каждого, когда что оправдано.
-    *   [02_distributed_monolith.md](./01_theory/02_distributed_monolith.md) — распределённый монолит как антипаттерн: признаки и — главное — почему он возникает.
-    *   [03_choosing_architecture.md](./01_theory/03_choosing_architecture.md) — критерии выбора архитектуры под размер команды и зрелость продукта.
-    *   [04_migration_and_strangler_fig.md](./01_theory/04_migration_and_strangler_fig.md) — миграция монолит → микросервисы: big bang против инкрементальной миграции, strangler fig pattern, разделение данных, Expand–Migrate–Contract.
-    *   [05_use_cases.md](./01_theory/05_use_cases.md) — практические применения: пошаговый выбор стиля, типичные ошибки, мини-чеклист.
-*   **[02_examples/](./02_examples/)** — runnable-примеры на чистом Python (без внешних зависимостей, детерминированные, завершаются сами):
-    *   [01_strangler_fig_router](./02_examples/01_strangler_fig_router/main.py) — маршрутизатор strangler fig: таблица префиксов путей, три этапа миграции трафика из монолита в новые сервисы без изменения клиента.
-    *   [02_distributed_monolith_chain](./02_examples/02_distributed_monolith_chain/main.py) — синхронная цепочка вызовов `A → B → C → D` без таймаутов: отказ самого нижнего звена рушит весь запрос, хотя остальные звенья исправны.
-*   **[03_exercises/](./03_exercises/)** — сценарии системного дизайна (не код): описание ситуации и вопросы для письменного разбора.
-    *   [01_startup_monolith_or_microservices](./03_exercises/01_startup_monolith_or_microservices.md) — стартап выбирает архитектуру для нового продукта.
-    *   [02_spot_the_distributed_monolith](./03_exercises/02_spot_the_distributed_monolith.md) — распознать признаки распределённого монолита в описанной системе.
-    *   [03_migration_plan](./03_exercises/03_migration_plan.md) — составить план инкрементальной миграции монолита на сервисы.
-    *   [04_team_topology_fit](./03_exercises/04_team_topology_fit.md) — подобрать архитектуру под структуру команд (закон Конвея).
-*   **[04_exercises_answers/](./04_exercises_answers/)** — разобранные рассуждения по тем же сценариям (не единственно верный ответ, а ход мысли и обоснование).
+- **[01_theory/](./01_theory/)** — теория с фокусом на специфику Python:
+  - [01_monolith_and_microservices_in_python.md (урок
+    01)](./01_theory/01_monolith_and_microservices_in_python.md)
+    — модульный монолит в пакетах Python (`import-linter`, `tach`), ловушки
+    Django apps, переход через Strangler Fig, WSGI vs ASGI при межсервисных
+    вызовах (`httpx.AsyncClient`), вынос фоновых задач в Celery/RQ/Dramatiq.
+  - [02_clean_architecture_and_ddd_in_python.md (урок
+    02)](./01_theory/02_clean_architecture_and_ddd_in_python.md)
+    — Active Record в Django против Clean Architecture + DDD в Python:
+    доменные сущности и неизменяемые `@dataclass(frozen=True)`, порты на
+    `typing.Protocol`, `Unit of Work` поверх `AsyncSession` SQLAlchemy и DI в
+    FastAPI.
+  - [03_api_styles_and_contracts_in_python.md (урок
+    03)](./01_theory/03_api_styles_and_contracts_in_python.md)
+    — REST (FastAPI + Pydantic v2 + `orjson`), gRPC (`grpc.aio`, Protobuf,
+    `mypy-protobuf`), GraphQL (`Strawberry` + `DataLoader` против проблемы
+    N+1) и место BFF в Python.
+- **[02_examples/](./02_examples/)** — runnable-примеры на чистом Python (без
+  внешних зависимостей, детерминированные, завершаются сами):
+  - [01_strangler_fig_router](./02_examples/01_strangler_fig_router/main.py) —
+    маршрутизатор Strangler Fig: таблица префиксов путей и три этапа миграции
+    трафика из монолита в новые сервисы без изменения клиента.
+  - [02_distributed_monolith_chain
+    (пример)](./02_examples/02_distributed_monolith_chain/main.py)
+    — синхронная цепочка вызовов `A → B → C → D` без таймаутов: отказ нижнего
+    звена рушит весь запрос.
+- **[03_exercises/](./03_exercises/)** — сценарии системного дизайна для
+  письменного разбора:
+  - [01_startup_monolith_or_microservices
+    (задача)](./03_exercises/01_startup_monolith_or_microservices.md)
+    — стартап выбирает архитектуру для нового продукта на Python.
+  - [02_spot_the_distributed_monolith
+    (задача)](./03_exercises/02_spot_the_distributed_monolith.md)
+    — распознать признаки распределённого монолита и исправить их.
+  - [03_migration_plan](./03_exercises/03_migration_plan.md) — составить план
+    инкрементальной миграции Django-монолита на сервисы.
+  - [04_team_topology_fit](./03_exercises/04_team_topology_fit.md) — подобрать
+    архитектуру под структуру команд (закон Конвея).
+- **[04_exercises_answers/](./04_exercises_answers/)** — разобранные
+  рассуждения по тем же сценариям для самопроверки.
 
 ## Как проходить
 
-1. Прочитайте теорию по подтемам в [01_theory/](./01_theory/), начиная с [01_monolith_vs_microservices.md](./01_theory/01_monolith_vs_microservices.md).
+1. Ознакомьтесь с базовой теорией в каноническом разделе DevOps (по ссылкам в
+   начале каждого урока) и прочитайте уроки в [01_theory/](./01_theory/).
 2. Запустите и изучите примеры из `02_examples/`:
    ```bash
    python3 ./02_examples/01_strangler_fig_router/main.py
    python3 ./02_examples/02_distributed_monolith_chain/main.py
    ```
-3. Проработайте сценарии в `03_exercises/` письменно — сформулируйте свой ответ на TODO-вопросы, прежде чем заглядывать в разбор.
-4. Сверьте свои рассуждения с [04_exercises_answers/](./04_exercises_answers/).
+3. Проработайте сценарии в [03_exercises/](./03_exercises/) письменно, прежде
+   чем открывать ответы.
+4. Сверьте свой ход мыслей с [04_exercises_answers/](./04_exercises_answers/).
 
 ## Когда двигаться дальше
 
-Когда можете по описанию команды и продукта обосновать выбор между монолитом и микросервисами, перечислить признаки распределённого монолита и набросать план миграции через strangler fig — переходите к [02_performance_and_scaling](../02_performance_and_scaling/).
+Когда вы можете обосновать выбор между модульным монолитом и микросервисами на
+Python, спроектировать слои сервиса с помощью `Protocol` и `Unit of Work`, а
+также выбрать между REST, gRPC и GraphQL под профиль нагрузки — переходите к
+[02_performance_and_scaling](../02_performance_and_scaling/).

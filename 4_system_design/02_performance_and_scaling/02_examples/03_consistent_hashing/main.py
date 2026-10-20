@@ -12,8 +12,8 @@
 
 from __future__ import annotations
 
-import hashlib
 import bisect
+import hashlib
 
 
 def stable_hash(value: str) -> int:
@@ -69,28 +69,51 @@ def main() -> None:
     mapping_before = {k: naive_mod_shard(k, shards_before) for k in keys}
     mapping_after = {k: naive_mod_shard(k, shards_after) for k in keys}
 
-    moved_naive = sum(1 for k in keys if mapping_before[k] != mapping_after[k])
+    moved_naive = sum(
+        1 for k in keys if mapping_before[k] != mapping_after[k]
+    )
     moved_naive_pct = 100.0 * moved_naive / len(keys)
-    print(f"Наивный hash % N: было {shards_before} шардов, стало {shards_after}.")
-    print(f"  Переместилось ключей: {moved_naive} из {len(keys)} ({moved_naive_pct:.1f}%)")
+    print(
+        f"Наивный hash % N: было {shards_before} шардов, "
+        f"стало {shards_after}."
+    )
+    print(
+        f"  Переместилось ключей: {moved_naive} из {len(keys)} "
+        f"({moved_naive_pct:.1f}%)"
+    )
 
     # --- Consistent hashing ---
-    ring = ConsistentHashRing(shards=["shard-0", "shard-1", "shard-2", "shard-3"])
+    ring = ConsistentHashRing(
+        shards=["shard-0", "shard-1", "shard-2", "shard-3"]
+    )
     mapping_ring_before = {k: ring.get_shard(k) for k in keys}
 
     ring.add_shard("shard-4")
     mapping_ring_after = {k: ring.get_shard(k) for k in keys}
 
-    moved_ring = sum(1 for k in keys if mapping_ring_before[k] != mapping_ring_after[k])
+    moved_ring = sum(
+        1 for k in keys if mapping_ring_before[k] != mapping_ring_after[k]
+    )
     moved_ring_pct = 100.0 * moved_ring / len(keys)
-    print(f"\nConsistent hashing: было 4 шарда, стало 5 (добавили shard-4).")
-    print(f"  Переместилось ключей: {moved_ring} из {len(keys)} ({moved_ring_pct:.1f}%)")
+    print("\nConsistent hashing: было 4 шарда, стало 5 (добавили shard-4).")
+    print(
+        f"  Переместилось ключей: {moved_ring} из {len(keys)} "
+        f"({moved_ring_pct:.1f}%)"
+    )
 
-    expected_fraction_pct = 100.0 / 5  # в идеале ~K/N = 1/5 ключей должно переехать
-    print(f"  Ожидаемая доля при идеальном распределении: ~{expected_fraction_pct:.1f}%")
+    # в идеале ~K/N = 1/5 ключей должно переехать
+    expected_fraction_pct = 100.0 / 5
+    print(
+        f"  Ожидаемая доля при идеальном распределении: "
+        f"~{expected_fraction_pct:.1f}%"
+    )
 
-    assert moved_naive_pct > 70.0, "наивный подход должен перемешать почти все ключи"
-    assert moved_ring_pct < 40.0, "consistent hashing должен переместить лишь часть ключей"
+    assert moved_naive_pct > 70.0, (
+        "наивный подход должен перемешать почти все ключи"
+    )
+    assert moved_ring_pct < 40.0, (
+        "consistent hashing должен переместить лишь часть ключей"
+    )
     assert moved_ring_pct < moved_naive_pct
 
     print(

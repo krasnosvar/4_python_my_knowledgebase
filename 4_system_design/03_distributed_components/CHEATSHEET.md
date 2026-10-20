@@ -1,122 +1,57 @@
-# Компоненты распределённых систем — шпаргалка
+# Компоненты распределённых систем в Python — шпаргалка
 
-Подробности и объяснения — в [01_theory/](./01_theory/). ⚠️ — типичная
-ошибка, которая дорого обходится.
+Подробности и объяснения — в [01_theory/](./01_theory/) и каноническом разделе
+[DevOps System Design](../../../5_devops_sre_knowledgebase/14_system_design/03_distributed_components_and_data/).
+⚠️ — типичная ошибка в Python-проектах, которая дорого обходится.
 
-## Путь запроса: кто за что отвечает
+## Пулы соединений к БД и PgBouncer в Python
 
-Подробнее: [06_use_cases.md](./01_theory/06_use_cases.md)
+Подробнее: [Пулы БД и брокеры сообщений в
+Python](./01_theory/01_db_pools_and_messaging_in_python.md)
 
-| Компонент | Вопрос, на который отвечает |
+| Параметр / Задача | Настройка в Python (`SQLAlchemy` / `Celery`) |
 | :--- | :--- |
-| API Gateway | периметр: auth, rate limit, TLS, маршрутизация |
-| Service discovery | куда вообще можно отправить запрос (список здоровых инстансов) |
-| Балансировщик | какой из здоровых инстансов выбрать |
-| БД сервиса | внутренняя деталь сервиса, своя технология под задачу |
-| Брокер | асинхронная связь, когда немедленный ответ не нужен |
+| Число коннектов от сервиса к БД | `PODS × WORKERS_PER_POD × (pool_size + max_overflow)` |
+| Работа `asyncpg` через `PgBouncer` (`pool_mode = transaction`) | `connect_args={"statement_cache_size": 0}` в `create_async_engine` |
+| Защита от мёртвых TCP-сокетов в пуле | `pool_pre_ping=True`, `pool_recycle=1800`, `pool_timeout=3.0` |
+| Воркеры `Celery` с `prefork` | Использовать `NullPool` (перед PgBouncer) или создавать `Engine` в `worker_process_init` |
 
-## API Gateway
+## Асинхронные сообщения: Outbox, Inbox и Backpressure
 
-Подробнее: [01_api_gateway.md](./01_theory/01_api_gateway.md)
+Подробнее: [Пулы БД и брокеры сообщений в
+Python](./01_theory/01_db_pools_and_messaging_in_python.md)
 
-| Делает (cross-cutting concerns) | Не делает |
+| Паттерн | Реализация в Python |
 | :--- | :--- |
-| маршрутизация по пути/заголовку/версии | бизнес-логику ⚠️ |
-| аутентификация/авторизация на входе | хранение собственной модели данных |
-| rate limiting и квоты (на пользователя/ключ) | |
-| терминация TLS, CORS | |
-| агрегация ответов, трансляция REST ↔ gRPC | |
-| логи, метрики, старт трейсинга | |
+| **Transactional Outbox** (запись) | `session.add(entity)` + `session.add(OutboxEvent(...))` в одном `await session.commit()` |
+| **Outbox Relay** (отправка пачками) | `select(OutboxEvent).where(...).limit(100).with_for_update(skip_locked=True)` |
+| **Idempotent Consumer** (Inbox) | `insert(ProcessedMessage).values(...).on_conflict_do_nothing()` в одной транзакции с бизнес-логикой |
+| **Backpressure в `asyncio`** | Ограничение параллелизма через `asyncio.Semaphore(N)` или `asyncio.Queue(maxsize=N)` |
 
-| Сравнение | Суть |
+## Отказоустойчивость, Health Checks и Graceful Shutdown
+
+Подробнее: [Отказоустойчивость и Graceful Shutdown в
+Python](./01_theory/02_resilience_and_graceful_shutdown_in_python.md)
+
+| Механизм защиты | Инструмент и синтаксис в Python |
 | :--- | :--- |
-| Reverse proxy | в базе: маршрутизация + TLS |
-| API Gateway | + auth, бизнесовый rate limit, агрегация, трансляция протоколов |
-| BFF | отдельный шлюз под тип клиента (web, mobile), подгоняет форму ответа; стоит за общим Gateway |
-| Zero trust | каждый сервис проверяет вызывающего заново, даже внутри периметра |
+| **Таймаут на запрос и блок** | `httpx.Timeout(connect=0.5, read=1.5, ...)` + `async with asyncio.timeout(2.0):` (3.11+) |
+| **Retries с Full Jitter** | `@retry(stop=stop_after_attempt(3), wait=wait_random_exponential(multiplier=0.1, max=2.0))` (`tenacity`) |
+| **Liveness Probe (`/healthz`)** | Быстрый ответ `{"status": "alive"}` **БЕЗ** походов в БД/Redis (иначе каскадный рестарт подов) |
+| **Readiness Probe (`/readyz`)** | Проверка `SELECT 1` в БД с коротким таймаутом; при сбое — `503` (убирает под из балансировки) |
+| **Graceful Shutdown (ASGI)** | `preStop: sleep 5` в K8s → `--timeout-graceful-shutdown 15` в Uvicorn → закрытие пулов после `yield` в `lifespan` |
+| **Graceful Shutdown (Celery)** | `task_acks_late=True`, `task_reject_on_worker_lost=True`, `worker_prefetch_multiplier=1` |
 
-Готовые решения: Kong, Envoy, Traefik, облачный API Gateway.
+## Типичные ошибки в Python
 
-## SQL vs NoSQL
-
-Подробнее: [02_databases_in_distributed_systems.md](./01_theory/02_databases_in_distributed_systems.md)
-
-| Тип | Примеры | Когда |
-| :--- | :--- | :--- |
-| Реляционная | PostgreSQL, MySQL | связи и JOIN, ACID (деньги, остатки), стабильная схема, отчёты |
-| Key-value | Redis, DynamoDB | доступ по ключу, скорость: кэш, сессии, счётчики |
-| Документная | MongoDB | вложенные данные, меняющаяся/полиморфная схема |
-| Широко-колоночная | Cassandra, HBase | write-heavy, линейное масштабирование, доступ по ключу партиции |
-| Графовая | Neo4j | связи важны для запросов: соцграф, рекомендации, антифрод |
-| Поиск / аналитика | Elasticsearch, ClickHouse | полнотекстовый поиск / огромные агрегации |
-
-| CAP при сетевом разделении | Поведение | Где |
-| :--- | :--- | :--- |
-| C (consistency) | отрезанный узел отказывает в ответе | реляционные БД с синхронной репликацией, банки |
-| A (availability) | отвечает, возможно устаревшими данными → eventual consistency | Cassandra, DynamoDB по умолчанию |
-
-Polyglot persistence: своя БД на сервис под его профиль; связанные данные
-синхронизируются через API/события, не через JOIN. Транзакционные данные —
-в одной БД, копии в поиске/аналитике — вторичные и отстающие.
-
-## Брокер сообщений: роль
-
-Подробнее: [03_message_brokers_role.md](./01_theory/03_message_brokers_role.md)
-
-| Роль | Что даёт |
-| :--- | :--- |
-| Развязка | производитель не знает потребителей; новый потребитель без правки производителя |
-| Буфер | всплески и недоступность потребителя не блокируют производителя |
-| Асинхронность | email, аналитика, отчёты — без открытого HTTP-соединения |
-| Fanout (pub/sub) | одно событие → аналитика, уведомления, поисковый индекс |
-| Фоновые воркеры | Celery / RQ / Dramatiq поверх Redis или RabbitMQ |
-
-| Когда | Выбор |
-| :--- | :--- |
-| Нужен немедленный результат для продолжения логики | синхронный вызов с таймаутом и деградацией |
-| Результат не нужен прямо сейчас | событие через брокер (цена — eventual consistency) |
-
-## Алгоритмы балансировки
-
-Подробнее: [04_load_balancing.md](./01_theory/04_load_balancing.md)
-
-| Алгоритм | Учитывает загрузку | Состояние | Когда |
-| :--- | :--- | :--- | :--- |
-| Round Robin | нет | нет | однородные инстансы, похожие по времени запросы |
-| Weighted Round Robin | нет (статичный вес) | минимальное | неоднородный парк машин |
-| Least Connections | да | среднее | запросы сильно различаются по длительности |
-| Least Response Time | да, точнее | больше | latency-критичные сервисы |
-| IP Hash / Consistent Hash | нет | нет | sticky-сессии, локальный кэш на инстансе |
-| Power of Two Choices | частично | минимальное | почти как least conn, но дешевле; много инстансов |
-
-| Уровень | Видит | Может |
-| :--- | :--- | :--- |
-| L4 | IP, порт, TCP | быстро раскидать соединения |
-| L7 | HTTP: путь, заголовки, cookie | маршрутизировать `/api/orders` и `/api/users` в разные пулы |
-
-## Health checks и discovery
-
-Подробнее: [05_health_checks_and_discovery.md](./01_theory/05_health_checks_and_discovery.md)
-
-| Проверка | Вопрос | Провал означает | Эндпоинт / Kubernetes |
-| :--- | :--- | :--- | :--- |
-| Liveness | процесс жив, не завис? | перезапустить | `/healthz`, `livenessProbe` (минимальная) |
-| Readiness | готов принимать трафик сейчас? | убрать из пула, не перезапускать | `/readyz`, `readinessProbe` (проверяет БД, кэш) |
-
-| Discovery | Плюс | Минус |
-| :--- | :--- | :--- |
-| Client-side (клиент спрашивает реестр и балансирует сам) | нет лишнего хопа | логика в каждом клиенте |
-| Server-side (стабильный адрес LB/прокси) | клиент прост | лишний сетевой хоп |
-| Kubernetes `Service` | DNS-имя + виртуальный IP, здоровые поды по readiness | — (это server-side) |
-
-Реестры: Consul, etcd. Реестр отдаёт только инстансы, прошедшие health check.
-
-## Типичные ошибки
-
-- ⚠️ Бизнес-логика в API Gateway → узкое место и единая точка отказа.
-- ⚠️ Одна проверка на liveness и readiness → лишние рестарты при сбое зависимости.
-- ⚠️ Sticky sessions «на всякий случай» вместо stateless + состояние в Redis.
-- ⚠️ Round Robin при запросах разной длительности → перекос нагрузки.
-- ⚠️ 5 разных БД «потому что модно» → операционная цена без выгоды.
-- ⚠️ Скрытые общие таблицы у «независимых» сервисов.
-- ⚠️ Захардкоженные адреса зависимостей вместо discovery.
+- ⚠️ Оставлять дефолтный `pool_size=5, max_overflow=10` при десятках подов и
+  нескольких воркерах Gunicorn без `PgBouncer` → исчерпание `max_connections` в
+  PostgreSQL.
+- ⚠️ Делать `await kafka_producer.send()` сразу после `await session.commit()`
+  без таблицы Outbox → потеря события при падении процесса между двумя строками.
+- ⚠️ Вызывать `requests.get(url)` без `timeout=` → вечное зависание потока при
+  потере пакетов.
+- ⚠️ Проверять БД или внешний сервис внутри `/healthz` (`livenessProbe`) →
+  одновременный рестарт всех подов при кратковременной просадке БД.
+- ⚠️ Создавать задачи через `asyncio.create_task()` на каждое сообщение из
+  очереди без семафора → `OOMKilled` при всплеске трафика.

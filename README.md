@@ -2,9 +2,9 @@
 
 ## Зачем этот раздел
 
-Учебная база по Python backend-разработке: язык, стандартная библиотека, конкурентность,
-базы данных, брокеры сообщений, веб-фреймворки, system design и профессиональные
-коммуникативные навыки инженера.
+Учебная база по Python backend-разработке: язык, стандартная библиотека,
+конкурентность, базы данных, брокеры сообщений, веб-фреймворки, system design
+и профессиональные коммуникативные навыки инженера.
 
 Материалы собраны как практический roadmap: краткая теория, runnable-примеры,
 упражнения и решения для самопроверки. Пройдя его, вы сможете писать на Python
@@ -19,32 +19,35 @@ backend-сервисы с базой данных, кэшем и очередя�
 
 > **`python3`, `python` или `py`?** В README и комментариях команды записаны как
 > `python3` или `python` — это одна и та же программа, интерпретатор Python 3.
-> На Linux и macOS обычно работает только `python3` (`python` может отсутствовать
+> На Linux и macOS обычно работает только `python3` (`python` может не быть
 > или указывать на старый Python 2), на Windows — `python` или `py`. Используйте
 > ту команду, которая на вашей системе показывает версию 3.12+ в ответ на
-> `--version`; подробнее — в [00_setup](./1_python/1_python_fundamentals/00_setup/).
+> `--version`; подробнее — в
+> [00_setup](./1_python/1_python_fundamentals/00_setup/).
 > Внутри активированного виртуального окружения (`.venv`) работают и `python`,
 > и `python3`.
 
 ## Структура
 
-- [0_tooling_and_workflow](./0_tooling_and_workflow/) — Git и Docker: минимум, без
-  которого не обойтись в повседневной работе. Git нужен с самого начала, Docker
-  можно отложить до `2_data_and_messaging`.
+- [0_tooling_and_workflow](./0_tooling_and_workflow/) — Git и Docker: минимум,
+  без которого не обойтись в повседневной работе. Git нужен с самого начала,
+  Docker можно отложить до `2_data_and_messaging`.
 - [1_python](./1_python/) — Python с нуля: переменные, типы, `if`/`for`/`while`,
   функции — и дальше до идиом языка, ООП, итераторов и генераторов,
   конкурентности (GIL, threading, multiprocessing, asyncio), стандартной
   библиотеки, тестирования, алгоритмов и внутреннего устройства CPython.
 - [2_data_and_messaging](./2_data_and_messaging/) — реляционные БД, транзакции
   и индексы, Redis как кэш, Kafka и RabbitMQ как брокеры сообщений.
-- [3_web_frameworks](./3_web_frameworks/) — FastAPI, Django ORM, Celery и сравнение
-  стеков между собой.
-- [4_system_design](./4_system_design/) — архитектурные стили, производительность
-  и масштабирование, компоненты распределённых систем, разбор кейсов целиком.
-- [5_engineering_communication](./5_engineering_communication/) — профессиональные
-  коммуникативные навыки: как документировать свою работу, объяснять сложные вещи
-  разным аудиториям, вести диалог под давлением, договариваться об условиях
-  и работать с конфликтами.
+- [3_web_frameworks](./3_web_frameworks/) — FastAPI, Django ORM, Celery и
+  сравнение стеков между собой.
+- [4_system_design](./4_system_design/) — архитектурные стили,
+  производительность и масштабирование, компоненты распределённых систем,
+  разбор кейсов целиком (с привязкой к CPython, ASGI/WSGI, SQLAlchemy и
+  `asyncio`).
+- [5_engineering_communication](./5_engineering_communication/) —
+  профессиональные коммуникативные навыки: как документировать свою работу,
+  объяснять сложные вещи разным аудиториям, вести диалог под давлением,
+  договариваться об условиях и работать с конфликтами.
 - [other](./other/) — окружение и упаковка (venv, зависимости), типизация
   и статический анализ.
 
@@ -58,8 +61,9 @@ backend-сервисы с базой данных, кэшем и очередя�
 - `04_exercises_answers/` — решения для самопроверки;
 - `README.md` — навигация по теме.
 
-Раздел [5_engineering_communication](./5_engineering_communication/) устроен иначе:
-вместо кода — `01_theory/` и `02_practice/` с чек-листами и сценариями для практики.
+Раздел [5_engineering_communication](./5_engineering_communication/) устроен
+иначе: вместо кода — `01_theory/` и `02_practice/` с чек-листами и сценариями
+для практики.
 
 ## Шпаргалки
 
@@ -83,28 +87,35 @@ backend-сервисы с базой данных, кэшем и очередя�
 - [CPython изнутри](./1_python/9_under_the_hood/CHEATSHEET.md)
 
 **2. Данные и сообщения**
-- [SQL и реляционные БД](./2_data_and_messaging/1_sql_relational_databases/CHEATSHEET.md)
+- [SQL и реляционные
+  БД](./2_data_and_messaging/1_sql_relational_databases/CHEATSHEET.md)
 - [Redis](./2_data_and_messaging/2_redis/CHEATSHEET.md)
-- [Брокеры сообщений (Kafka, RabbitMQ)](./2_data_and_messaging/3_message_brokers/CHEATSHEET.md)
+- [Брокеры сообщений (Kafka,
+  RabbitMQ)](./2_data_and_messaging/3_message_brokers/CHEATSHEET.md)
 
 **3. Веб-фреймворки**
 - [FastAPI](./3_web_frameworks/1_fastapi/CHEATSHEET.md)
 - [Django](./3_web_frameworks/2_django/CHEATSHEET.md)
 - [Celery](./3_web_frameworks/3_celery/CHEATSHEET.md)
-- [Сравнение стеков: FastAPI vs Django, место Celery](./3_web_frameworks/4_stack_comparison/CHEATSHEET.md)
+- [Сравнение стеков: FastAPI vs Django, место
+  Celery](./3_web_frameworks/4_stack_comparison/CHEATSHEET.md)
 
 **4. System design**
 - [Архитектурные стили](./4_system_design/01_architecture_styles/CHEATSHEET.md)
-- [Производительность и масштабирование](./4_system_design/02_performance_and_scaling/CHEATSHEET.md)
-- [Компоненты распределённых систем](./4_system_design/03_distributed_components/CHEATSHEET.md)
+- [Производительность и
+  масштабирование](./4_system_design/02_performance_and_scaling/CHEATSHEET.md)
+- [Компоненты распределённых
+  систем](./4_system_design/03_distributed_components/CHEATSHEET.md)
 - [Разбор кейсов](./4_system_design/04_case_studies/CHEATSHEET.md)
 
 **5. Инженерная коммуникация**
-- [Все темы 01–06 на одной странице](./5_engineering_communication/CHEATSHEET.md)
+- [Все темы 01–06](./5_engineering_communication/CHEATSHEET.md)
 
 **Дополнительно**
-- [Окружения и упаковка (venv, pip, Poetry)](./other/01_environments_and_packaging/CHEATSHEET.md)
-- [Типизация и статический анализ](./other/02_typing_and_static_analysis/CHEATSHEET.md)
+- [Окружения и упаковка (venv, pip,
+  Poetry)](./other/01_environments_and_packaging/CHEATSHEET.md)
+- [Типизация и статический
+  анализ](./other/02_typing_and_static_analysis/CHEATSHEET.md)
 
 ## Как проходить
 
@@ -113,11 +124,11 @@ backend-сервисы с базой данных, кэшем и очередя�
 2. Пройти Git из [0_tooling_and_workflow](./0_tooling_and_workflow/) — он нужен
    с самого начала, чтобы сохранять свои решения. Docker из того же раздела
    можно отложить до шага 5.
-3. Пройти [1_python](./1_python/): основы языка, ООП, конкурентность, стандартная
-   библиотека, тестирование и алгоритмы. Docker здесь не нужен.
+3. Пройти [1_python](./1_python/): основы языка, ООП, конкурентность,
+   стандартная библиотека, тестирование и алгоритмы. Docker здесь не нужен.
 4. До первого `pip install` (на практике он впервые понадобится в
    `1_python/7_testing`) создать виртуальное окружение по
-   [other/01_environments_and_packaging](./other/01_environments_and_packaging/),
+   [01_environments_and_packaging](./other/01_environments_and_packaging/),
    иначе библиотеки встанут в системный Python.
 5. Пройти Docker из [0_tooling_and_workflow](./0_tooling_and_workflow/), затем
    перейти к [2_data_and_messaging](./2_data_and_messaging/) и
@@ -136,7 +147,8 @@ backend-сервисы с базой данных, кэшем и очередя�
 состояние задачи, а готовые решения лежат рядом в `04_exercises_answers/`.
 
 ```bash
-python3 1_python/1_python_fundamentals/01_variables_and_types/03_exercises/01_convert_and_sum.py
+python3 \
+  1_python/1_python_fundamentals/01_variables_and_types/03_exercises/01_convert_and_sum.py
 ```
 
 Пока задача не решена, скрипт падает с `NotImplementedError` — это нормально.
@@ -152,9 +164,12 @@ Docker Compose — команда для запуска указана в README
 
 ## Полезные ресурсы
 
-- [Python.org Docs](https://docs.python.org/3/) — официальная документация Python.
+- [Python.org Docs](https://docs.python.org/3/) — официальная документация
+  Python.
 - [Real Python](https://realpython.com) — практические статьи и туториалы.
 - [PEP 8](https://peps.python.org/pep-0008/) — руководство по стилю кода.
-- [Fluent Python](https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/) —
-  книга Лучано Рамальо о том, как устроен Python «под капотом».
-- [Exercism Python Track](https://exercism.org/tracks/python) — практические упражнения.
+- [Fluent
+  Python](https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/)
+  — книга Лучано Рамальо о том, как устроен Python «под капотом».
+- [Exercism Python Track](https://exercism.org/tracks/python) — практические
+  упражнения.

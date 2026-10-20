@@ -34,7 +34,7 @@ written in Russian, matching the rest of the repo.
   `03_exercises/`, `04_exercises_answers/`, `README.md`.
 - **If `01_theory/` ever holds 2+ files, give each a numeric reading-order
   prefix** (`01_`, `02_`, ...) — e.g.
-  `1_python/1_python_fundamentals/05_collections/01_theory/{01_..., 02_..., 03_...}`.
+  `1_python/1_python_fundamentals/05_collections/01_theory/{01_..., 02_...}`.
   A single-file topic keeps its plain descriptive name (`01_...`). This
   matters doubly here: the prefix order isn't just for a reader browsing the
   bare directory — it's also the *dependency* order (see Clarity Principle
@@ -55,7 +55,7 @@ Exceptions — one combined sheet with a `##` section per subtopic:
 `5_engineering_communication/CHEATSHEET.md` (subtopic READMEs link to
 `../CHEATSHEET.md#<anchor>`).
 
-- **Format** (reference: `0_tooling_and_workflow/01_git_essentials/CHEATSHEET.md`):
+- **Format** (see `0_tooling_and_workflow/01_git_essentials/CHEATSHEET.md`):
   `# <Тема> — шпаргалка`, then a line linking the theory; content grouped
   by `##` sub-headings as tables «задача → синтаксис/команда», decision
   tables «когда что», complexity tables, short code blocks, one-line
@@ -110,8 +110,10 @@ has one home — later sections give a one-line gloss plus a link:
 - recursion → `8_algorithms_dsa/01_theory/05_recursion_basics.md`
 - HTTP, routes, status codes, ASGI/WSGI →
   `3_web_frameworks/1_fastapi/01_theory/01_http_and_first_app.md`
-- basic SQL → `2_data_and_messaging/1_sql_relational_databases/01_theory/01_sql_in_5_minutes.md`
-- CAP / eventual consistency → `.../01_theory/09_cap_and_eventual_consistency.md`
+- basic SQL →
+  `2_data_and_messaging/1_sql_relational_databases/01_theory/01_sql_in_5_minutes.md`
+- CAP / eventual consistency →
+  `.../01_theory/09_cap_and_eventual_consistency.md`
 - venv/pip → `other/01_environments_and_packaging/` (needed before any
   `pip install -r requirements.txt`, even though it lives in `other/`)
 
@@ -119,9 +121,11 @@ Internals for curious readers (hash buckets, load factor, over-allocation)
 go into a `<details>` "Для любопытных" block so the main text stays
 readable for someone coming straight from the previous section.
 
-Never point a reader into a sibling repo (Go, devops) as if it were part of
-this one — two such pointers in `4_system_design` were dead ends. Explain
-inline or link inside this repo.
+For language-agnostic System Design theory, `4_system_design` explicitly
+summarizes the core concept inline (`## О чём эта тема (краткий контекст)`)
+and links to the canonical section in the sibling repo
+(`../5_devops_sre_knowledgebase/14_system_design/`). Do not point to sibling
+repos without an inline summary or to non-existent paths.
 
 ## Clarity Principle — never use a construct before it's taught
 
@@ -295,7 +299,7 @@ rename, move, or reorder breaks an unpredictable number of these.
 
 **After any structural change, re-verify every relative link — don't rely on
 memory.** A code-fence-aware script does this reliably: glob all `*.md`
-files (including dot-directories like `.agents/` — Python's `glob.glob("**/*.md",
+files (including dot-directories like `.agents/` — `glob.glob("**/*.md",
 recursive=True)` silently skips those, so dot-directories need an explicit
 separate path), skip lines inside ` ``` ` fences (otherwise Python tuple
 syntax like `(a, b)` in a code sample false-positives as a markdown link),
