@@ -19,7 +19,7 @@ consumer Kafka/RabbitMQ так, чтобы сообщения не теряли�
 
 - Python на уровне [1_python](../1_python/): функции, классы, исключения,
   контекст-менеджеры (`with`); для примеров с `aiokafka` — основы `asyncio`
-  из [6_concurrency](../1_python/6_concurrency/).
+  из [5_concurrency](../1_python/5_concurrency/).
 - Виртуальное окружение и `pip install -r requirements.txt` —
   [other/01_environments_and_packaging](../other/01_environments_and_packaging/).
 - Docker и `docker compose up` — стенды PostgreSQL, Redis, Kafka и RabbitMQ

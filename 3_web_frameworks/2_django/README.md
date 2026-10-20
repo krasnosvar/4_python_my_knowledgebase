@@ -14,7 +14,7 @@ production-проектов, и почти в каждом рано или по�
 
 ## Что нужно знать заранее
 
-- Классы и объекты из [1_python/4_oop](../../1_python/4_oop/) — модели
+- Классы и объекты из [1_python/3_oop](../../1_python/3_oop/) — модели
   Django описываются классами.
 - Базовый SQL (`SELECT`, `JOIN`, внешние ключи) и проблема N+1 из
   [2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).

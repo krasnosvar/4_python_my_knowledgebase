@@ -21,7 +21,7 @@ Queue.
 ## Что нужно знать заранее
 
 `asyncio` из
-[1_python/6_concurrency](../../1_python/6_concurrency/) (Kafka-примеры
+[1_python/5_concurrency](../../1_python/5_concurrency/) (Kafka-примеры
 асинхронные), Docker на уровне
 [0_tooling_and_workflow](../../0_tooling_and_workflow/) и виртуальное
 окружение из

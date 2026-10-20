@@ -15,7 +15,7 @@ HTTP API с валидацией входных данных, подключен
 
 ## Что нужно знать заранее
 
-- `async`/`await` из [1_python/6_concurrency](../../1_python/6_concurrency/).
+- `async`/`await` из [1_python/5_concurrency](../../1_python/5_concurrency/).
 - Базовый SQL из
   [2_data_and_messaging/1_sql_relational_databases](../../2_data_and_messaging/1_sql_relational_databases/).
 - Виртуальное окружение и `pip install -r requirements.txt` —

@@ -72,16 +72,15 @@ backend-сервисы с базой данных, кэшем и очередя�
 - [Docker и Compose](./0_tooling_and_workflow/02_docker_basics/CHEATSHEET.md)
 
 **1. Python**
-- [Основы языка (темы 1.0–1.7)](./1_python/1_python_fundamentals/CHEATSHEET.md)
-- [Типы и коллекции изнутри](./1_python/2_basics/CHEATSHEET.md)
-- [Функции и декораторы](./1_python/3_functions_and_decorators/CHEATSHEET.md)
-- [ООП](./1_python/4_oop/CHEATSHEET.md)
-- [Итераторы и генераторы](./1_python/5_iterators_generators/CHEATSHEET.md)
-- [Конкурентность](./1_python/6_concurrency/CHEATSHEET.md)
-- [Стандартная библиотека](./1_python/7_standard_library/CHEATSHEET.md)
-- [Тестирование](./1_python/8_testing/CHEATSHEET.md)
-- [Алгоритмы и структуры данных](./1_python/9_algorithms_dsa/CHEATSHEET.md)
-- [CPython изнутри](./1_python/10_under_the_hood/CHEATSHEET.md)
+- [Основы языка (темы 1.0–1.8)](./1_python/1_python_fundamentals/CHEATSHEET.md)
+- [Функции и декораторы](./1_python/2_functions_and_decorators/CHEATSHEET.md)
+- [ООП](./1_python/3_oop/CHEATSHEET.md)
+- [Итераторы и генераторы](./1_python/4_iterators_generators/CHEATSHEET.md)
+- [Конкурентность](./1_python/5_concurrency/CHEATSHEET.md)
+- [Стандартная библиотека](./1_python/6_standard_library/CHEATSHEET.md)
+- [Тестирование](./1_python/7_testing/CHEATSHEET.md)
+- [Алгоритмы и структуры данных](./1_python/8_algorithms_dsa/CHEATSHEET.md)
+- [CPython изнутри](./1_python/9_under_the_hood/CHEATSHEET.md)
 
 **2. Данные и сообщения**
 - [SQL и реляционные БД](./2_data_and_messaging/1_sql_relational_databases/CHEATSHEET.md)
@@ -117,7 +116,7 @@ backend-сервисы с базой данных, кэшем и очередя�
 3. Пройти [1_python](./1_python/): основы языка, ООП, конкурентность, стандартная
    библиотека, тестирование и алгоритмы. Docker здесь не нужен.
 4. До первого `pip install` (на практике он впервые понадобится в
-   `1_python/8_testing`) создать виртуальное окружение по
+   `1_python/7_testing`) создать виртуальное окружение по
    [other/01_environments_and_packaging](./other/01_environments_and_packaging/),
    иначе библиотеки встанут в системный Python.
 5. Пройти Docker из [0_tooling_and_workflow](./0_tooling_and_workflow/), затем

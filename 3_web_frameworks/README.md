@@ -17,7 +17,7 @@ Celery и обоснованно выбрать стек под проект.
 ## Что нужно знать заранее
 
 - Python на уровне [1_python](../1_python/), включая ООП и `asyncio`
-  ([6_concurrency](../1_python/6_concurrency/)).
+  ([5_concurrency](../1_python/5_concurrency/)).
 - SQL, Redis и брокеры сообщений из
   [2_data_and_messaging](../2_data_and_messaging/).
 - Виртуальное окружение и `pip` —

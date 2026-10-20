@@ -18,27 +18,29 @@ written in Russian, matching the rest of the repo.
   `00_setup` (install Python 3.12+, terminal, `cd`, `python3`/`python`/`py`,
   running a script, REPL, editor; the one place that explains which
   interpreter command to type — don't mass-rewrite `python` in other READMEs)
-  + 7 topics: variables/types, operators, input/output, control flow,
-  functions + type hints, exceptions, modules/imports), `2_basics` (folder name kept
-  for link stability, but its README title is "Типы и коллекции изнутри" —
-  don't call it "основы", that collided with fundamentals and readers
-  couldn't tell why it existed), `3_functions_and_decorators`, `4_oop`,
-  `5_iterators_generators`, `6_concurrency`, `7_standard_library`, `8_testing`,
-  `9_algorithms_dsa`, `10_under_the_hood`. Don't assume the prefix on disk and
-  in `1_python/README.md` agree — verify with `ls` before trusting either;
-  this repo has already been renumbered once (see "Renumbering history"
-  below) and missed stale references the first pass.
+  + 8 topics: `01_variables_and_types`, `02_operators_and_expressions`,
+  `03_input_output`, `04_control_flow`, `05_collections`,
+  `06_functions_basics`, `07_exceptions`, `08_modules_and_imports`),
+  `2_functions_and_decorators`, `3_oop`, `4_iterators_generators`,
+  `5_concurrency`, `6_standard_library`, `7_testing`, `8_algorithms_dsa`,
+  `9_under_the_hood`. `2_basics` was dissolved into `1_python_fundamentals`
+  (syntax, collections, mutability, comprehensions, control flow) and
+  `9_under_the_hood` (CPython internals: small int cache, string interning,
+  hash table buckets/load factor, list over-allocation). Don't assume the
+  prefix on disk and in `1_python/README.md` agree — verify with `ls` before
+  trusting either; this repo has been renumbered (see "Renumbering history"
+  below).
 - Standard leaf template per subsection/subtopic: `01_theory/`, `02_examples/`,
   `03_exercises/`, `04_exercises_answers/`, `README.md`.
 - **If `01_theory/` ever holds 2+ files, give each a numeric reading-order
-  prefix** (`01_`, `02_`, ...) — e.g. `1_python/2_basics/01_theory/{01_...,
-  02_..., 03_..., 04_..., 05_..., 06_...}`. A single-file topic keeps its
-  plain descriptive name (no prefix needed). This matters doubly here: the
-  prefix order isn't just for a reader browsing the bare directory — it's
-  also the *dependency* order (see Clarity Principle below), so reordering
-  theory files for pedagogy means renaming them, not just reshuffling a list
-  in the README. Same convention as the sibling `5_devops_sre_knowledgebase`
-  and `6_ai_engineering_knowledgebase` repos.
+  prefix** (`01_`, `02_`, ...) — e.g.
+  `1_python/1_python_fundamentals/05_collections/01_theory/{01_..., 02_..., 03_...}`.
+  A single-file topic keeps its plain descriptive name (`01_...`). This
+  matters doubly here: the prefix order isn't just for a reader browsing the
+  bare directory — it's also the *dependency* order (see Clarity Principle
+  below), so reordering theory files for pedagogy means renaming them, not
+  just reshuffling a list in the README. Same convention as the sibling
+  `5_devops_sre_knowledgebase` and `6_ai_engineering_knowledgebase` repos.
 - Exercise/example file numbering (`03_exercises/01_foo.py`, `02_bar.py`, ...)
   does not need to match theory-file dependency order — exercises are meant
   to be done after reading *all* theory files in the section, so they can be
@@ -83,32 +85,29 @@ Title labels: top-level dirs are `# Раздел N. <Русское назван
 (`Тема 01.` in `0_tooling`, `4_system_design`, `5_engineering_communication`,
 `other`; `Тема 3.` in `1_python`, `2_data_and_messaging`, `3_web_frameworks`).
 `1_python_fundamentals` is itself `Тема 1.` and its subtopics are
-`Тема 1.0` … `Тема 1.7`. Russian name first, English in parentheses.
+`Тема 1.0` … `Тема 1.8`. Russian name first, English in parentheses.
 
 Every section/topic README (in `1_python/` and in the top-level sections)
 opens with a title (`Тема N. ...` in `1_python/`), a **"Зачем этот раздел"**
 paragraph — what concrete problem it solves and what the reader can do
 afterwards — then prerequisites, a linked file list, how to go through it,
-and "Когда двигаться дальше". A README that is only a list of topics was
-the root of the "непонятно зачем этот раздел" complaint about `2_basics`;
-a full audit then found the same gap in sections 3 and 6–10 and in
-`3_web_frameworks`/`other` topics that had no README at all.
+and "Когда двигаться дальше".
 
 ## Where foundational topics live (link here, don't re-explain)
 
 A repo-wide audit found these used everywhere but taught nowhere; each now
 has one home — later sections give a one-line gloss plus a link:
-- exceptions (`try/except/raise`) → `1_python_fundamentals/06_exceptions/`
+- exceptions (`try/except/raise`) → `1_python_fundamentals/07_exceptions/`
 - `import`, modules, `if __name__ == "__main__"` →
-  `1_python_fundamentals/07_modules_and_imports/`
+  `1_python_fundamentals/08_modules_and_imports/`
 - type hints → section "Аннотации типов" in
-  `1_python_fundamentals/05_functions_basics/01_theory/01_functions_basics.md`
+  `1_python_fundamentals/06_functions_basics/01_theory/01_functions_basics.md`
   (full depth: `other/02_typing_and_static_analysis/`)
-- list/tuple/set/dict syntax, O(1)/O(n) glossary → start of
-  `2_basics/01_theory/02_collections_lists_tuples_sets_dicts.md`
-  (full Big-O: `9_algorithms_dsa/01_theory/01_big_o_notation.md`)
-- what a class/object/`self` is → `4_oop/01_theory/01_what_is_a_class.md`
-- recursion → `9_algorithms_dsa/01_theory/05_recursion_basics.md`
+- list/tuple/set/dict syntax, O(1)/O(n) glossary →
+  `1_python_fundamentals/05_collections/01_theory/01_lists_tuples_sets_dicts.md`
+  (full Big-O: `8_algorithms_dsa/01_theory/01_big_o_notation.md`)
+- what a class/object/`self` is → `3_oop/01_theory/01_what_is_a_class.md`
+- recursion → `8_algorithms_dsa/01_theory/05_recursion_basics.md`
 - HTTP, routes, status codes, ASGI/WSGI →
   `3_web_frameworks/1_fastapi/01_theory/01_http_and_first_app.md`
 - basic SQL → `2_data_and_messaging/1_sql_relational_databases/01_theory/01_sql_in_5_minutes.md`
@@ -194,15 +193,15 @@ Real bugs found and fixed under this rule:
   `NotImplementedError`. For per-exercise directories the answer directory
   has the *same name* as the exercise directory (no `_answers` suffix).
 - The `проверок пройдено` summary line is mandatory everywhere, but only
-  fundamentals/`2_basics` wrap checks in `_self_check()`; sections 3–10
+  `1_python_fundamentals` wraps checks in `_self_check()`; sections 2–9
   count `checks_passed`/`total_checks` inside `main()`/`if __name__` —
   don't "fix" that into `_self_check()` without being asked.
 - Exercise file/dir names everywhere are `NN_name` (two-digit prefix) — no
   `task_N_`, `exN_`, single-digit `1_` variants.
-- Fundamentals exercises 01–04 use `def`/`return`/`raise`/`if __name__`
-  before topics 05–07 teach them; this is deliberate and covered by a
+- Fundamentals exercises 01–05 use `def`/`return`/`raise`/`if __name__`
+  before topics 06–08 teach them; this is deliberate and covered by a
   "Как устроен файл упражнения" block (edit only the line under `TODO`,
-  the rest is scaffolding explained in 05–07). Keep that block when editing.
+  the rest is scaffolding explained in 06–08). Keep that block when editing.
 - After writing or editing any of these, actually run them — `python
   path/to/script.py` for examples and answers (must exit cleanly with correct
   output / all `PASS`), and for exercise files confirm they raise
@@ -211,9 +210,9 @@ Real bugs found and fixed under this rule:
   `input()` need input piped (`printf 'Аня\n25\n' | python3 ...`), otherwise
   the `EOFError` is a false failure.
 - Known intentional exceptions to "unsolved exercise raises
-  `NotImplementedError`": `4_oop/03_exercises/02-05` fail with
+  `NotImplementedError`": `3_oop/03_exercises/02-05` fail with
   `TypeError`/`AttributeError` because the TODO is "add a method/`__init__`"
-  (nothing to raise from yet); `8_testing/03_exercises/*/` source modules run
+  (nothing to raise from yet); `7_testing/03_exercises/*/` source modules run
   clean because the task is to write the tests for them.
 - **Git block (`0_tooling_and_workflow/01_git_essentials/`) uses no
   scripts.** It was rewritten away from `setup.sh`/`check.sh`/`solve.sh`
@@ -277,6 +276,17 @@ exercise names in `2_data_and_messaging` (SQL `task_1a…task_4_*` →
 and `3_web_frameworks` (FastAPI `1_*`/`2_*`, Django `task_0N_*`) → `NN_name`;
 new `1_python_fundamentals/00_setup/`. Grep for `_answers/`, `task_`, `ex1_`
 as plain text after touching these areas.
+
+Fourth pass (`2_basics` dissolved):
+`2_basics` was dissolved into `1_python_fundamentals` (added `05_collections`,
+renamed `04_control_flow_basics` → `04_control_flow`, shifted `05..07` →
+`06..08`), `3_oop` (`09_hashable_key.py`), `8_algorithms_dsa`
+(`13_membership_performance`), and `9_under_the_hood` (CPython small int
+caching, string interning, list/dict/set memory layout and hash table internals,
+comprehension `LIST_APPEND` bytecode). Top-level folders in `1_python/` were
+renumbered `3..10` → `2..9` (`2_functions_and_decorators`, `3_oop`,
+`4_iterators_generators`, `5_concurrency`, `6_standard_library`, `7_testing`,
+`8_algorithms_dsa`, `9_under_the_hood`).
 
 ## Cross-Reference Discipline
 

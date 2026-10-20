@@ -9,7 +9,9 @@
 ## Что нужно знать заранее
 
 - Тема [01_architecture_styles](../01_architecture_styles/).
-- Понятие GIL и CPU-bound/I/O-bound нагрузки из [6_concurrency](../../1_python/6_concurrency/), базовый SQL и Redis как кэш из [2_data_and_messaging](../../2_data_and_messaging/).
+- Понятие GIL и CPU-bound/I/O-bound нагрузки из
+  [5_concurrency](../../1_python/5_concurrency/), базовый SQL и Redis как
+  кэш из [2_data_and_messaging](../../2_data_and_messaging/).
 
 ## Структура раздела
 

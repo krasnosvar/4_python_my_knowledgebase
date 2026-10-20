@@ -1,0 +1,72 @@
+# Тема 4. Итераторы и генераторы (Iterators & Generators)
+
+Этот раздел посвящён протоколу итератора, генераторным функциям (`yield`), ленивым вычислениям и модулю `itertools` — инструментам, которые позволяют обрабатывать данные потоково, не загружая всё в память сразу.
+
+## Зачем этот раздел
+
+Бэкенд постоянно обрабатывает данные, которые не стоит (или нельзя)
+целиком держать в памяти: большие файлы логов, выгрузки из БД, постраничные
+ответы API. Итераторы и генераторы позволяют обрабатывать такие данные по
+одному элементу — память не растёт вместе с объёмом. Кроме того, `for`,
+comprehensions, `with` на `@contextmanager` и сами корутины `async`/`await`
+построены на протоколе итератора и генераторах. После раздела вы сможете
+писать ленивые пайплайны обработки данных, понимать, что происходит внутри
+`for`, и будете готовы к разделу про конкурентность.
+
+**Уже знакомы с темой?** → [CHEATSHEET.md](./CHEATSHEET.md) — протокол итератора, `yield`/`send`/`yield from`, список vs генератор, `itertools`, ловушки.
+
+## Что нужно знать заранее
+
+- [1_python_fundamentals](../1_python_fundamentals/README.md) — коллекции и
+  comprehensions ([05_collections](../1_python_fundamentals/05_collections/README.md)).
+- [2_functions_and_decorators](../2_functions_and_decorators/README.md) —
+  функции как значения, `lambda`.
+- [3_oop](../3_oop/README.md) — классы и магические методы: свой итератор —
+  это класс с `__iter__`/`__next__`.
+
+## Структура раздела
+
+* **[01_theory/](./01_theory/)** — теория (разбита по подтемам):
+    * [01_iterator_protocol.md](./01_theory/01_iterator_protocol.md) — протокол итератора: `__iter__`/`__next__`, разница между iterable и iterator, как устроен `for` изнутри, одноразовость итераторов.
+    * [02_generators_and_yield.md](./01_theory/02_generators_and_yield.md) — генераторные функции, `yield`, сохранение состояния между вызовами `next()`, методы `send`/`close`/`throw`.
+    * [03_yield_from_and_subgenerators.md](./01_theory/03_yield_from_and_subgenerators.md) — делегирование итерации через `yield from`, проброс значений, исключений и возвращаемого значения подгенератора.
+    * [04_laziness_and_memory.md](./01_theory/04_laziness_and_memory.md) — **ленивые вычисления и экономия памяти: сравнение размера списка и генератора через `sys.getsizeof`, когда список всё-таки нужен**.
+    * [05_generator_expressions.md](./01_theory/05_generator_expressions.md) — генераторные выражения `(x for x in ...)` в сравнении с list comprehension, одноразовость, опускание скобок при передаче в функцию.
+    * [06_itertools.md](./01_theory/06_itertools.md) — обзор `itertools`: `chain`, `islice`, `groupby` (и её главная ловушка), `tee`, бесконечные итераторы, комбинаторика.
+    * [07_generator_based_coroutines.md](./01_theory/07_generator_based_coroutines.md) — генераторы как псевдо-корутины через `send()`, прайминг генератора, связь с будущим `async`/`await`.
+* **[02_examples/](./02_examples/)** — практические примеры:
+    * [01_cli_utilities.py](./02_examples/01_cli_utilities.py) — потоковая обработка большого лог-источника построчно через генераторный пайплайн, без загрузки всего в память.
+    * [02_system_infrastructure.py](./02_examples/02_system_infrastructure.py) — **прямое сравнение памяти списка и генератора на большом объёме данных, а также склейка нескольких источников через `itertools.chain` и постраничный вывод через `itertools.islice`**.
+    * [03_product_backend.py](./02_examples/03_product_backend.py) — собственный класс-итератор для пагинации по данным «API», и `yield from` для разворачивания вложенной структуры категорий и товаров.
+* **[03_exercises/](./03_exercises/)** — задачи с встроенной самопроверкой: при верном решении файл печатает `N/N проверок пройдено`, при ошибке падает с `AssertionError` и описанием, что не так:
+    * `01_custom_iterator_class` — класс `Range`-подобного итератора с `__iter__`/`__next__`.
+    * `02_fibonacci_generator` — генератор чисел Фибоначчи с ограничением по количеству или значению.
+    * `03_yield_from_flatten` — разворачивание произвольно вложенного списка через `yield from`.
+    * `04_lazy_pipeline` — ленивый пайплайн из генераторных стадий с проверкой того, что лишние элементы не вычисляются.
+    * `05_generator_expression_stats` — статистика (сумма/среднее/максимум) через генераторные выражения, переданные напрямую во встроенные функции.
+    * `06_itertools_groupby` — группировка записей по ключу через `itertools.groupby`, включая обязательную предварительную сортировку.
+    * `07_itertools_islice_pagination` — пагинация iterable через `itertools.islice` без превращения всего источника в список.
+    * `08_generator_send_coroutine` — **генератор-аккумулятор на основе `send()`, включая шаг прайминга**.
+* **[04_exercises_answers/](./04_exercises_answers/)** — эталонные решения.
+
+## Как проходить тему
+
+1. Прочитайте теорию по порядку, начиная с [01_iterator_protocol.md](./01_theory/01_iterator_protocol.md).
+2. Запустите и изучите примеры из папки `02_examples/`:
+   ```bash
+   python 02_examples/02_system_infrastructure.py
+   ```
+3. Выполните задачи в `03_exercises/`. Запустите файл — самопроверка выведет `N/N проверок пройдено` или `AssertionError`:
+   ```bash
+   python 03_exercises/04_lazy_pipeline.py
+   ```
+4. Сверьтесь с эталонными ответами в `04_exercises_answers/`.
+
+## Когда двигаться дальше
+
+Когда можете объяснить разницу между iterable и iterator, написать
+генератор и пайплайн из генераторов, который не материализует данные в
+список, и рассказать, зачем генератору «прайминг» перед `send()`, —
+переходите к [5_concurrency](../5_concurrency/README.md). Заодно вернитесь к
+упражнению `07_context_manager_generator` из
+[раздела 2](../2_functions_and_decorators/README.md).

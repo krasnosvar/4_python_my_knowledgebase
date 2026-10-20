@@ -104,7 +104,7 @@ Content-Type: application/json
 **ASGI** — его асинхронный преемник: один процесс может обслуживать много
 запросов одновременно через `async`/`await` (так работает FastAPI, сервер
 — `uvicorn`). Подробнее про `async`/`await` — в
-[1_python/6_concurrency](../../../1_python/6_concurrency/).
+[1_python/5_concurrency](../../../1_python/5_concurrency/).
 
 ## Минимальное приложение
 
@@ -142,7 +142,7 @@ uvicorn main:app --reload
   интерактивная документация по всем роутам.
 
 `@app.get("/items/{item_id}")` — декоратор (см.
-[1_python/3_functions_and_decorators](../../../1_python/3_functions_and_decorators/)),
+[1_python/2_functions_and_decorators](../../../1_python/2_functions_and_decorators/)),
 который регистрирует функцию как обработчик `GET`-запросов на этот путь.
 `{item_id}` в пути становится path-параметром, а `q` — параметр функции,
 которого нет в пути, — FastAPI считает query-параметром.
@@ -151,7 +151,7 @@ uvicorn main:app --reload
 
 В обычном Python аннотации (`item_id: int`, `-> dict`) — необязательные
 подсказки, интерпретатор их не проверяет (см. раздел «Аннотации типов» в
-[05_functions_basics](../../../1_python/1_python_fundamentals/05_functions_basics/01_theory/01_functions_basics.md)
+[06_functions_basics](../../../1_python/1_python_fundamentals/06_functions_basics/01_theory/01_functions_basics.md)
 и подробно —
 [other/02_typing_and_static_analysis](../../../other/02_typing_and_static_analysis/01_theory/01_type_hints_and_mypy.md)).
 

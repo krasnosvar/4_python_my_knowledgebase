@@ -85,4 +85,4 @@ print(value * 2)
 
 </details>
 
-Дальше: [ветвления и циклы](../../04_control_flow_basics/01_theory/01_control_flow_basics.md).
+Дальше: [ветвления и циклы](../../04_control_flow/01_theory/01_control_flow.md).

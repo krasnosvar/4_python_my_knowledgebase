@@ -17,7 +17,7 @@ Python их при запуске не проверяет, это подсказ
 - Функции и базовые аннотации типов — тема про функции в
   [1_python_fundamentals](../../1_python/1_python_fundamentals/).
 - Для `Protocol` и дженериков из теории полезно знать классы
-  ([4_oop](../../1_python/4_oop/)), но это не обязательно для основной части.
+  ([3_oop](../../1_python/3_oop/)), но это не обязательно для основной части.
 - Виртуальное окружение, чтобы поставить `mypy`/`ruff` —
   [01_environments_and_packaging](../01_environments_and_packaging/README.md).
 
